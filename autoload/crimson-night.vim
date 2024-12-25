@@ -1,36 +1,36 @@
 " =============================================================================
-" URL: https://github.com/sainnhe/everforest
-" Filename: autoload/everforest.vim
-" Author: sainnhe
-" Email: i@sainnhe.dev
+" URL: https://github.com/sainnhe/crimson-night
+" Filename: autoload/crimson-night.vim
+" Author: tia987
+" Email: i@tia987.dev
 " License: MIT License
 " =============================================================================
 
-function! everforest#get_configuration() "{{{
+function! crimson-night#get_configuration() "{{{
   return {
-        \ 'background': get(g:, 'everforest_background', 'medium'),
-        \ 'transparent_background': get(g:, 'everforest_transparent_background', 0),
-        \ 'dim_inactive_windows': get(g:, 'everforest_dim_inactive_windows', 0),
-        \ 'disable_italic_comment': get(g:, 'everforest_disable_italic_comment', 0),
-        \ 'enable_italic': get(g:, 'everforest_enable_italic', 0),
-        \ 'cursor': get(g:, 'everforest_cursor', 'auto'),
-        \ 'sign_column_background': get(g:, 'everforest_sign_column_background', 'none'),
-        \ 'spell_foreground': get(g:, 'everforest_spell_foreground', 'none'),
-        \ 'ui_contrast': get(g:, 'everforest_ui_contrast', 'low'),
-        \ 'show_eob': get(g:, 'everforest_show_eob', 1),
-        \ 'float_style': get(g:, 'everforest_float_style', 'bright'),
-        \ 'current_word': get(g:, 'everforest_current_word', get(g:, 'everforest_transparent_background', 0) == 0 ? 'grey background' : 'bold'),
-        \ 'inlay_hints_background': get(g:, 'everforest_inlay_hints_background', 'none'),
-        \ 'lightline_disable_bold': get(g:, 'everforest_lightline_disable_bold', 0),
-        \ 'diagnostic_text_highlight': get(g:, 'everforest_diagnostic_text_highlight', 0),
-        \ 'diagnostic_line_highlight': get(g:, 'everforest_diagnostic_line_highlight', 0),
-        \ 'diagnostic_virtual_text': get(g:, 'everforest_diagnostic_virtual_text', 'grey'),
-        \ 'disable_terminal_colors': get(g:, 'everforest_disable_terminal_colors', 0),
-        \ 'better_performance': get(g:, 'everforest_better_performance', 0),
-        \ 'colors_override': get(g:, 'everforest_colors_override', {}),
+        \ 'background': get(g:, 'crimson-night_background', 'medium'),
+        \ 'transparent_background': get(g:, 'crimson-night_transparent_background', 0),
+        \ 'dim_inactive_windows': get(g:, 'crimson-night_dim_inactive_windows', 0),
+        \ 'disable_italic_comment': get(g:, 'crimson-night_disable_italic_comment', 0),
+        \ 'enable_italic': get(g:, 'crimson-night_enable_italic', 0),
+        \ 'cursor': get(g:, 'crimson-night_cursor', 'auto'),
+        \ 'sign_column_background': get(g:, 'crimson-night_sign_column_background', 'none'),
+        \ 'spell_foreground': get(g:, 'crimson-night_spell_foreground', 'none'),
+        \ 'ui_contrast': get(g:, 'crimson-night_ui_contrast', 'low'),
+        \ 'show_eob': get(g:, 'crimson-night_show_eob', 1),
+        \ 'float_style': get(g:, 'crimson-night_float_style', 'bright'),
+        \ 'current_word': get(g:, 'crimson-night_current_word', get(g:, 'crimson-night_transparent_background', 0) == 0 ? 'grey background' : 'bold'),
+        \ 'inlay_hints_background': get(g:, 'crimson-night_inlay_hints_background', 'none'),
+        \ 'lightline_disable_bold': get(g:, 'crimson-night_lightline_disable_bold', 0),
+        \ 'diagnostic_text_highlight': get(g:, 'crimson-night_diagnostic_text_highlight', 0),
+        \ 'diagnostic_line_highlight': get(g:, 'crimson-night_diagnostic_line_highlight', 0),
+        \ 'diagnostic_virtual_text': get(g:, 'crimson-night_diagnostic_virtual_text', 'grey'),
+        \ 'disable_terminal_colors': get(g:, 'crimson-night_disable_terminal_colors', 0),
+        \ 'better_performance': get(g:, 'crimson-night_better_performance', 0),
+        \ 'colors_override': get(g:, 'crimson-night_colors_override', {}),
         \ }
 endfunction "}}}
-function! everforest#get_palette(background, colors_override) "{{{
+function! crimson-night#get_palette(background, colors_override) "{{{
   if a:background ==# 'hard' "{{{
     if &background ==# 'dark'
       let palette1 = {
@@ -167,7 +167,7 @@ function! everforest#get_palette(background, colors_override) "{{{
   endif "}}}
   return extend(extend(palette1, palette2), a:colors_override)
 endfunction "}}}
-function! everforest#highlight(group, fg, bg, ...) "{{{
+function! crimson-night#highlight(group, fg, bg, ...) "{{{
   execute 'highlight' a:group
         \ 'guifg=' . a:fg[0]
         \ 'guibg=' . a:bg[0]
@@ -183,54 +183,54 @@ function! everforest#highlight(group, fg, bg, ...) "{{{
           \ a:2[0] :
           \ 'NONE')
 endfunction "}}}
-function! everforest#syn_gen(path, last_modified, msg) "{{{
+function! crimson-night#syn_gen(path, last_modified, msg) "{{{
   " Generate the `after/syntax` directory.
-  let full_content = join(readfile(a:path), "\n") " Get the content of `colors/everforest.vim`
+  let full_content = join(readfile(a:path), "\n") " Get the content of `colors/crimson-night.vim`
   let syn_conent = []
-  let rootpath = everforest#syn_rootpath(a:path) " Get the path to place the `after/syntax` directory.
+  let rootpath = crimson-night#syn_rootpath(a:path) " Get the path to place the `after/syntax` directory.
   call substitute(full_content, '" syn_begin.\{-}syn_end', '\=add(syn_conent, submatch(0))', 'g') " Search for 'syn_begin.\{-}syn_end' (non-greedy) and put all the search results into a list.
   for content in syn_conent
     let syn_list = []
     call substitute(matchstr(matchstr(content, 'syn_begin:.\{-}{{{'), ':.\{-}{{{'), '\(\w\|-\)\+', '\=add(syn_list, submatch(0))', 'g') " Get the file types. }}}}}}
     for syn in syn_list
-      call everforest#syn_write(rootpath, syn, content) " Write the content.
+      call crimson-night#syn_write(rootpath, syn, content) " Write the content.
     endfor
   endfor
-  call everforest#syn_write(rootpath, 'text', "let g:everforest_last_modified = '" . a:last_modified . "'") " Write the last modified time to `after/syntax/text/everforest.vim`
+  call crimson-night#syn_write(rootpath, 'text', "let g:crimson-night_last_modified = '" . a:last_modified . "'") " Write the last modified time to `after/syntax/text/crimson-night.vim`
   let syntax_relative_path = has('win32') ? '\after\syntax' : '/after/syntax'
   if a:msg ==# 'update'
-    echohl WarningMsg | echom '[everforest] Updated ' . rootpath . syntax_relative_path | echohl None
-    call everforest#ftplugin_detect(a:path)
+    echohl WarningMsg | echom '[crimson-night] Updated ' . rootpath . syntax_relative_path | echohl None
+    call crimson-night#ftplugin_detect(a:path)
   else
-    echohl WarningMsg | echom '[everforest] Generated ' . rootpath . syntax_relative_path | echohl None
+    echohl WarningMsg | echom '[crimson-night] Generated ' . rootpath . syntax_relative_path | echohl None
     execute 'set runtimepath+=' . fnameescape(fnamemodify(rootpath, ':p')) . 'after'
   endif
 endfunction "}}}
-function! everforest#syn_write(rootpath, syn, content) "{{{
+function! crimson-night#syn_write(rootpath, syn, content) "{{{
   " Write the content.
-  let syn_path = a:rootpath . '/after/syntax/' . a:syn . '/everforest.vim' " The path of a syntax file.
+  let syn_path = a:rootpath . '/after/syntax/' . a:syn . '/crimson-night.vim' " The path of a syntax file.
   " create a new file if it doesn't exist
   if !filereadable(syn_path)
     call mkdir(a:rootpath . '/after/syntax/' . a:syn, 'p')
     call writefile([
-          \ "if !exists('g:colors_name') || g:colors_name !=# 'everforest'",
+          \ "if !exists('g:colors_name') || g:colors_name !=# 'crimson-night'",
           \ '    finish',
           \ 'endif'
-          \ ], syn_path, 'a') " Abort if the current color scheme is not everforest.
+          \ ], syn_path, 'a') " Abort if the current color scheme is not crimson-night.
     call writefile([
-          \ "if index(g:everforest_loaded_file_types, '" . a:syn . "') ==# -1",
-          \ "    call add(g:everforest_loaded_file_types, '" . a:syn . "')",
+          \ "if index(g:crimson-night_loaded_file_types, '" . a:syn . "') ==# -1",
+          \ "    call add(g:crimson-night_loaded_file_types, '" . a:syn . "')",
           \ 'else',
           \ '    finish',
           \ 'endif'
           \ ], syn_path, 'a') " Abort if this file type has already been loaded.
   endif
-  " If there is something like `call everforest#highlight()`, then add
+  " If there is something like `call crimson-night#highlight()`, then add
   " code to initialize the palette and configuration.
-  if matchstr(a:content, 'everforest#highlight') !=# ''
+  if matchstr(a:content, 'crimson-night#highlight') !=# ''
     call writefile([
-          \ 'let s:configuration = everforest#get_configuration()',
-          \ 'let s:palette = everforest#get_palette(s:configuration.background, s:configuration.colors_override)'
+          \ 'let s:configuration = crimson-night#get_configuration()',
+          \ 'let s:palette = crimson-night#get_palette(s:configuration.background, s:configuration.colors_override)'
           \ ], syn_path, 'a')
   endif
   " Append the content.
@@ -238,7 +238,7 @@ function! everforest#syn_write(rootpath, syn, content) "{{{
   " Add modeline.
   call writefile(['" vim: set sw=2 ts=2 sts=2 et tw=80 ft=vim fdm=marker fmr={{{,}}}:'], syn_path, 'a')
 endfunction "}}}
-function! everforest#syn_rootpath(path) "{{{
+function! crimson-night#syn_rootpath(path) "{{{
   " Get the directory where `after/syntax` is generated.
   if (matchstr(a:path, '^/usr/share') ==# '') " Return the plugin directory. The `after/syntax` directory should never be generated in `/usr/share`, even if you are a root user.
     return fnamemodify(a:path, ':p:h:h')
@@ -250,17 +250,17 @@ function! everforest#syn_rootpath(path) "{{{
     endif
   endif
 endfunction "}}}
-function! everforest#syn_newest(path, last_modified) "{{{
-  " Determine whether the current syntax files are up to date by comparing the last modified time in `colors/everforest.vim` and `after/syntax/text/everforest.vim`.
-  let rootpath = everforest#syn_rootpath(a:path)
-  execute 'source ' . rootpath . '/after/syntax/text/everforest.vim'
-  return a:last_modified ==# g:everforest_last_modified ? 1 : 0
+function! crimson-night#syn_newest(path, last_modified) "{{{
+  " Determine whether the current syntax files are up to date by comparing the last modified time in `colors/crimson-night.vim` and `after/syntax/text/crimson-night.vim`.
+  let rootpath = crimson-night#syn_rootpath(a:path)
+  execute 'source ' . rootpath . '/after/syntax/text/crimson-night.vim'
+  return a:last_modified ==# g:crimson-night_last_modified ? 1 : 0
 endfunction "}}}
-function! everforest#syn_clean(path, msg) "{{{
+function! crimson-night#syn_clean(path, msg) "{{{
   " Clean the `after/syntax` directory.
-  let rootpath = everforest#syn_rootpath(a:path)
-  " Remove `after/syntax/**/everforest.vim`.
-  let file_list = split(globpath(rootpath, 'after/syntax/**/everforest.vim'), "\n")
+  let rootpath = crimson-night#syn_rootpath(a:path)
+  " Remove `after/syntax/**/crimson-night.vim`.
+  let file_list = split(globpath(rootpath, 'after/syntax/**/crimson-night.vim'), "\n")
   for file in file_list
     call delete(file)
   endfor
@@ -279,20 +279,20 @@ function! everforest#syn_clean(path, msg) "{{{
   endif
   if a:msg
     let syntax_relative_path = has('win32') ? '\after\syntax' : '/after/syntax'
-    echohl WarningMsg | echom '[everforest] Cleaned ' . rootpath . syntax_relative_path | echohl None
+    echohl WarningMsg | echom '[crimson-night] Cleaned ' . rootpath . syntax_relative_path | echohl None
   endif
 endfunction "}}}
-function! everforest#syn_exists(path) "{{{
-  return filereadable(everforest#syn_rootpath(a:path) . '/after/syntax/text/everforest.vim')
+function! crimson-night#syn_exists(path) "{{{
+  return filereadable(crimson-night#syn_rootpath(a:path) . '/after/syntax/text/crimson-night.vim')
 endfunction "}}}
-function! everforest#ftplugin_detect(path) "{{{
+function! crimson-night#ftplugin_detect(path) "{{{
   " Check if /after/ftplugin exists.
   " This directory is generated in earlier versions, users may need to manually clean it.
-  let rootpath = everforest#syn_rootpath(a:path)
-  if filereadable(everforest#syn_rootpath(a:path) . '/after/ftplugin/text/everforest.vim')
+  let rootpath = crimson-night#syn_rootpath(a:path)
+  if filereadable(crimson-night#syn_rootpath(a:path) . '/after/ftplugin/text/crimson-night.vim')
     let ftplugin_relative_path = has('win32') ? '\after\ftplugin' : '/after/ftplugin'
-    echohl WarningMsg | echom '[everforest] Detected ' . rootpath . ftplugin_relative_path | echohl None
-    echohl WarningMsg | echom '[everforest] This directory is no longer used, you may need to manually delete it.' | echohl None
+    echohl WarningMsg | echom '[crimson-night] Detected ' . rootpath . ftplugin_relative_path | echohl None
+    echohl WarningMsg | echom '[crimson-night] This directory is no longer used, you may need to manually delete it.' | echohl None
   endif
 endfunction "}}}
 
