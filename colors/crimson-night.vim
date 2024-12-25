@@ -7,20 +7,20 @@
 " -----------------------------------------------------------------------------
 
 " Initialization: {{{
-let s:configuration = crimson-night#get_configuration()
-let s:palette = crimson-night#get_palette(s:configuration.background, s:configuration.colors_override)
+let s:configuration = crimsonnight#get_configuration()
+let s:palette = crimsonnight#get_palette(s:configuration.background, s:configuration.colors_override)
 let s:path = expand('<sfile>:p') " the path of this script
 let s:last_modified = 'Sun Nov 24 10:15:18 PM UTC 2024'
-let g:crimson-night_loaded_file_types = []
+let g:crimsonnight_loaded_file_types = []
 
-if !(exists('g:colors_name') && g:colors_name ==# 'crimson-night' && s:configuration.better_performance)
+if !(exists('g:colors_name') && g:colors_name ==# 'crimsonnight' && s:configuration.better_performance)
   highlight clear
   if exists('syntax_on')
     syntax reset
   endif
 endif
 
-let g:colors_name = 'crimson-night'
+let g:colors_name = 'crimsonnight'
 
 if !(has('termguicolors') && &termguicolors) && !has('gui_running') && &t_Co != 256
   finish
@@ -29,205 +29,205 @@ endif
 " Common Highlight Groups: {{{
 " UI: {{{
 if s:configuration.transparent_background >= 1
-  call crimson-night#highlight('Normal', s:palette.fg, s:palette.none)
-  call crimson-night#highlight('NormalNC', s:palette.fg, s:palette.none)
-  call crimson-night#highlight('Terminal', s:palette.fg, s:palette.none)
+  call crimsonnight#highlight('Normal', s:palette.fg, s:palette.none)
+  call crimsonnight#highlight('NormalNC', s:palette.fg, s:palette.none)
+  call crimsonnight#highlight('Terminal', s:palette.fg, s:palette.none)
   if s:configuration.show_eob
-    call crimson-night#highlight('EndOfBuffer', s:palette.bg4, s:palette.none)
+    call crimsonnight#highlight('EndOfBuffer', s:palette.bg4, s:palette.none)
   else
-    call crimson-night#highlight('EndOfBuffer', s:palette.bg0, s:palette.none)
+    call crimsonnight#highlight('EndOfBuffer', s:palette.bg0, s:palette.none)
   endif
   if s:configuration.ui_contrast ==# 'low'
-    call crimson-night#highlight('FoldColumn', s:palette.bg5, s:palette.none)
+    call crimsonnight#highlight('FoldColumn', s:palette.bg5, s:palette.none)
   else
-    call crimson-night#highlight('FoldColumn', s:palette.grey0, s:palette.none)
+    call crimsonnight#highlight('FoldColumn', s:palette.grey0, s:palette.none)
   endif
-  call crimson-night#highlight('Folded', s:palette.grey1, s:palette.none)
-  call crimson-night#highlight('SignColumn', s:palette.fg, s:palette.none)
-  call crimson-night#highlight('ToolbarLine', s:palette.fg, s:palette.none)
+  call crimsonnight#highlight('Folded', s:palette.grey1, s:palette.none)
+  call crimsonnight#highlight('SignColumn', s:palette.fg, s:palette.none)
+  call crimsonnight#highlight('ToolbarLine', s:palette.fg, s:palette.none)
 else
-  call crimson-night#highlight('Normal', s:palette.fg, s:palette.bg0)
+  call crimsonnight#highlight('Normal', s:palette.fg, s:palette.bg0)
   if s:configuration.dim_inactive_windows
-    call crimson-night#highlight('NormalNC', s:palette.fg, s:palette.bg_dim)
+    call crimsonnight#highlight('NormalNC', s:palette.fg, s:palette.bg_dim)
   else
-    call crimson-night#highlight('NormalNC', s:palette.fg, s:palette.bg0)
+    call crimsonnight#highlight('NormalNC', s:palette.fg, s:palette.bg0)
   endif
-  call crimson-night#highlight('Terminal', s:palette.fg, s:palette.bg0)
+  call crimsonnight#highlight('Terminal', s:palette.fg, s:palette.bg0)
   if s:configuration.show_eob
-    call crimson-night#highlight('EndOfBuffer', s:palette.bg4, s:palette.none)
+    call crimsonnight#highlight('EndOfBuffer', s:palette.bg4, s:palette.none)
   else
-    call crimson-night#highlight('EndOfBuffer', s:palette.bg0, s:palette.none)
+    call crimsonnight#highlight('EndOfBuffer', s:palette.bg0, s:palette.none)
   endif
-  call crimson-night#highlight('Folded', s:palette.grey1, s:palette.bg1)
-  call crimson-night#highlight('ToolbarLine', s:palette.fg, s:palette.bg2)
+  call crimsonnight#highlight('Folded', s:palette.grey1, s:palette.bg1)
+  call crimsonnight#highlight('ToolbarLine', s:palette.fg, s:palette.bg2)
   if s:configuration.sign_column_background ==# 'grey'
-    call crimson-night#highlight('SignColumn', s:palette.fg, s:palette.bg1)
-    call crimson-night#highlight('FoldColumn', s:palette.grey2, s:palette.bg1)
+    call crimsonnight#highlight('SignColumn', s:palette.fg, s:palette.bg1)
+    call crimsonnight#highlight('FoldColumn', s:palette.grey2, s:palette.bg1)
   else
-    call crimson-night#highlight('SignColumn', s:palette.fg, s:palette.none)
+    call crimsonnight#highlight('SignColumn', s:palette.fg, s:palette.none)
     if s:configuration.ui_contrast ==# 'low'
-      call crimson-night#highlight('FoldColumn', s:palette.bg5, s:palette.none)
+      call crimsonnight#highlight('FoldColumn', s:palette.bg5, s:palette.none)
     else
-      call crimson-night#highlight('FoldColumn', s:palette.grey0, s:palette.none)
+      call crimsonnight#highlight('FoldColumn', s:palette.grey0, s:palette.none)
     endif
   endif
 endif
 if has('nvim')
-  call crimson-night#highlight('IncSearch', s:palette.bg0, s:palette.red)
-  call crimson-night#highlight('Search', s:palette.bg0, s:palette.green)
+  call crimsonnight#highlight('IncSearch', s:palette.bg0, s:palette.red)
+  call crimsonnight#highlight('Search', s:palette.bg0, s:palette.green)
 else
-  call crimson-night#highlight('IncSearch', s:palette.red, s:palette.bg0, 'reverse')
-  call crimson-night#highlight('Search', s:palette.green, s:palette.bg0, 'reverse')
+  call crimsonnight#highlight('IncSearch', s:palette.red, s:palette.bg0, 'reverse')
+  call crimsonnight#highlight('Search', s:palette.green, s:palette.bg0, 'reverse')
 endif
 highlight! link CurSearch IncSearch
-call crimson-night#highlight('ColorColumn', s:palette.none, s:palette.bg1)
+call crimsonnight#highlight('ColorColumn', s:palette.none, s:palette.bg1)
 if s:configuration.ui_contrast ==# 'low'
-  call crimson-night#highlight('Conceal', s:palette.bg5, s:palette.none)
+  call crimsonnight#highlight('Conceal', s:palette.bg5, s:palette.none)
 else
-  call crimson-night#highlight('Conceal', s:palette.grey0, s:palette.none)
+  call crimsonnight#highlight('Conceal', s:palette.grey0, s:palette.none)
 endif
 if s:configuration.cursor ==# 'auto'
-  call crimson-night#highlight('Cursor', s:palette.none, s:palette.none, 'reverse')
+  call crimsonnight#highlight('Cursor', s:palette.none, s:palette.none, 'reverse')
 else
-  call crimson-night#highlight('Cursor', s:palette.bg0, s:palette[s:configuration.cursor])
+  call crimsonnight#highlight('Cursor', s:palette.bg0, s:palette[s:configuration.cursor])
 endif
 highlight! link vCursor Cursor
 highlight! link iCursor Cursor
 highlight! link lCursor Cursor
 highlight! link CursorIM Cursor
 if &diff
-  call crimson-night#highlight('CursorLine', s:palette.none, s:palette.none, 'underline')
-  call crimson-night#highlight('CursorColumn', s:palette.none, s:palette.none, 'bold')
+  call crimsonnight#highlight('CursorLine', s:palette.none, s:palette.none, 'underline')
+  call crimsonnight#highlight('CursorColumn', s:palette.none, s:palette.none, 'bold')
 else
-  call crimson-night#highlight('CursorLine', s:palette.none, s:palette.bg1)
-  call crimson-night#highlight('CursorColumn', s:palette.none, s:palette.bg1)
+  call crimsonnight#highlight('CursorLine', s:palette.none, s:palette.bg1)
+  call crimsonnight#highlight('CursorColumn', s:palette.none, s:palette.bg1)
 endif
 if s:configuration.ui_contrast ==# 'low'
-  call crimson-night#highlight('LineNr', s:palette.bg5, s:palette.none)
+  call crimsonnight#highlight('LineNr', s:palette.bg5, s:palette.none)
   if &diff
-    call crimson-night#highlight('CursorLineNr', s:palette.grey1, s:palette.none, 'underline')
+    call crimsonnight#highlight('CursorLineNr', s:palette.grey1, s:palette.none, 'underline')
   elseif (&relativenumber == 1 && &cursorline == 0) || s:configuration.sign_column_background ==# 'none'
-    call crimson-night#highlight('CursorLineNr', s:palette.grey1, s:palette.none)
+    call crimsonnight#highlight('CursorLineNr', s:palette.grey1, s:palette.none)
   else
-    call crimson-night#highlight('CursorLineNr', s:palette.grey1, s:palette.bg1)
+    call crimsonnight#highlight('CursorLineNr', s:palette.grey1, s:palette.bg1)
   endif
 else
-  call crimson-night#highlight('LineNr', s:palette.grey0, s:palette.none)
+  call crimsonnight#highlight('LineNr', s:palette.grey0, s:palette.none)
   if &diff
-    call crimson-night#highlight('CursorLineNr', s:palette.grey2, s:palette.none, 'underline')
+    call crimsonnight#highlight('CursorLineNr', s:palette.grey2, s:palette.none, 'underline')
   elseif (&relativenumber == 1 && &cursorline == 0) || s:configuration.sign_column_background ==# 'none'
-    call crimson-night#highlight('CursorLineNr', s:palette.grey2, s:palette.none)
+    call crimsonnight#highlight('CursorLineNr', s:palette.grey2, s:palette.none)
   else
-    call crimson-night#highlight('CursorLineNr', s:palette.grey2, s:palette.bg1)
+    call crimsonnight#highlight('CursorLineNr', s:palette.grey2, s:palette.bg1)
   endif
 endif
-call crimson-night#highlight('DiffAdd', s:palette.none, s:palette.bg_green)
-call crimson-night#highlight('DiffChange', s:palette.none, s:palette.bg_blue)
-call crimson-night#highlight('DiffDelete', s:palette.none, s:palette.bg_red)
+call crimsonnight#highlight('DiffAdd', s:palette.none, s:palette.bg_green)
+call crimsonnight#highlight('DiffChange', s:palette.none, s:palette.bg_blue)
+call crimsonnight#highlight('DiffDelete', s:palette.none, s:palette.bg_red)
 if has('nvim')
-  call crimson-night#highlight('DiffText', s:palette.bg0, s:palette.blue)
+  call crimsonnight#highlight('DiffText', s:palette.bg0, s:palette.blue)
 else
-  call crimson-night#highlight('DiffText', s:palette.blue, s:palette.bg0, 'reverse')
+  call crimsonnight#highlight('DiffText', s:palette.blue, s:palette.bg0, 'reverse')
 endif
-call crimson-night#highlight('Directory', s:palette.green, s:palette.none)
-call crimson-night#highlight('ErrorMsg', s:palette.red, s:palette.none, 'bold,underline')
-call crimson-night#highlight('WarningMsg', s:palette.yellow, s:palette.none, 'bold')
-call crimson-night#highlight('ModeMsg', s:palette.fg, s:palette.none, 'bold')
-call crimson-night#highlight('MoreMsg', s:palette.yellow, s:palette.none, 'bold')
-call crimson-night#highlight('MatchParen', s:palette.none, s:palette.bg4)
-call crimson-night#highlight('NonText', s:palette.bg4, s:palette.none)
+call crimsonnight#highlight('Directory', s:palette.green, s:palette.none)
+call crimsonnight#highlight('ErrorMsg', s:palette.red, s:palette.none, 'bold,underline')
+call crimsonnight#highlight('WarningMsg', s:palette.yellow, s:palette.none, 'bold')
+call crimsonnight#highlight('ModeMsg', s:palette.fg, s:palette.none, 'bold')
+call crimsonnight#highlight('MoreMsg', s:palette.yellow, s:palette.none, 'bold')
+call crimsonnight#highlight('MatchParen', s:palette.none, s:palette.bg4)
+call crimsonnight#highlight('NonText', s:palette.bg4, s:palette.none)
 if has('nvim')
-  call crimson-night#highlight('Whitespace', s:palette.bg4, s:palette.none)
-  call crimson-night#highlight('SpecialKey', s:palette.yellow, s:palette.none)
+  call crimsonnight#highlight('Whitespace', s:palette.bg4, s:palette.none)
+  call crimsonnight#highlight('SpecialKey', s:palette.yellow, s:palette.none)
 else
-  call crimson-night#highlight('SpecialKey', s:palette.bg3, s:palette.none)
+  call crimsonnight#highlight('SpecialKey', s:palette.bg3, s:palette.none)
 endif
-call crimson-night#highlight('Pmenu', s:palette.fg, s:palette.bg2)
-call crimson-night#highlight('PmenuSbar', s:palette.none, s:palette.bg2)
-call crimson-night#highlight('PmenuSel', s:palette.bg0, s:palette.statusline1)
-call crimson-night#highlight('PmenuKind', s:palette.green, s:palette.bg2)
-call crimson-night#highlight('PmenuExtra', s:palette.grey2, s:palette.bg2)
+call crimsonnight#highlight('Pmenu', s:palette.fg, s:palette.bg2)
+call crimsonnight#highlight('PmenuSbar', s:palette.none, s:palette.bg2)
+call crimsonnight#highlight('PmenuSel', s:palette.bg0, s:palette.statusline1)
+call crimsonnight#highlight('PmenuKind', s:palette.green, s:palette.bg2)
+call crimsonnight#highlight('PmenuExtra', s:palette.grey2, s:palette.bg2)
 highlight! link WildMenu PmenuSel
-call crimson-night#highlight('PmenuThumb', s:palette.none, s:palette.grey0)
+call crimsonnight#highlight('PmenuThumb', s:palette.none, s:palette.grey0)
 if s:configuration.float_style ==# 'dim'
-  call crimson-night#highlight('NormalFloat', s:palette.fg, s:palette.bg_dim)
-  call crimson-night#highlight('FloatBorder', s:palette.grey1, s:palette.bg_dim)
-  call crimson-night#highlight('FloatTitle', s:palette.fg, s:palette.bg_dim, 'bold')
+  call crimsonnight#highlight('NormalFloat', s:palette.fg, s:palette.bg_dim)
+  call crimsonnight#highlight('FloatBorder', s:palette.grey1, s:palette.bg_dim)
+  call crimsonnight#highlight('FloatTitle', s:palette.fg, s:palette.bg_dim, 'bold')
 else
-  call crimson-night#highlight('NormalFloat', s:palette.fg, s:palette.bg2)
-  call crimson-night#highlight('FloatBorder', s:palette.grey1, s:palette.bg2)
-  call crimson-night#highlight('FloatTitle', s:palette.fg, s:palette.bg2, 'bold')
+  call crimsonnight#highlight('NormalFloat', s:palette.fg, s:palette.bg2)
+  call crimsonnight#highlight('FloatBorder', s:palette.grey1, s:palette.bg2)
+  call crimsonnight#highlight('FloatTitle', s:palette.fg, s:palette.bg2, 'bold')
 endif
-call crimson-night#highlight('Question', s:palette.yellow, s:palette.none)
+call crimsonnight#highlight('Question', s:palette.yellow, s:palette.none)
 if s:configuration.spell_foreground ==# 'none'
-  call crimson-night#highlight('SpellBad', s:palette.none, s:palette.none, 'undercurl', s:palette.red)
-  call crimson-night#highlight('SpellCap', s:palette.none, s:palette.none, 'undercurl', s:palette.blue)
-  call crimson-night#highlight('SpellLocal', s:palette.none, s:palette.none, 'undercurl', s:palette.aqua)
-  call crimson-night#highlight('SpellRare', s:palette.none, s:palette.none, 'undercurl', s:palette.purple)
+  call crimsonnight#highlight('SpellBad', s:palette.none, s:palette.none, 'undercurl', s:palette.red)
+  call crimsonnight#highlight('SpellCap', s:palette.none, s:palette.none, 'undercurl', s:palette.blue)
+  call crimsonnight#highlight('SpellLocal', s:palette.none, s:palette.none, 'undercurl', s:palette.aqua)
+  call crimsonnight#highlight('SpellRare', s:palette.none, s:palette.none, 'undercurl', s:palette.purple)
 else
-  call crimson-night#highlight('SpellBad', s:palette.red, s:palette.none, 'undercurl', s:palette.red)
-  call crimson-night#highlight('SpellCap', s:palette.blue, s:palette.none, 'undercurl', s:palette.blue)
-  call crimson-night#highlight('SpellLocal', s:palette.aqua, s:palette.none, 'undercurl', s:palette.aqua)
-  call crimson-night#highlight('SpellRare', s:palette.purple, s:palette.none, 'undercurl', s:palette.purple)
+  call crimsonnight#highlight('SpellBad', s:palette.red, s:palette.none, 'undercurl', s:palette.red)
+  call crimsonnight#highlight('SpellCap', s:palette.blue, s:palette.none, 'undercurl', s:palette.blue)
+  call crimsonnight#highlight('SpellLocal', s:palette.aqua, s:palette.none, 'undercurl', s:palette.aqua)
+  call crimsonnight#highlight('SpellRare', s:palette.purple, s:palette.none, 'undercurl', s:palette.purple)
 endif
 if s:configuration.transparent_background == 2
-  call crimson-night#highlight('StatusLine', s:palette.grey1, s:palette.none)
-  call crimson-night#highlight('StatusLineTerm', s:palette.grey1, s:palette.none)
-  call crimson-night#highlight('StatusLineNC', s:palette.grey0, s:palette.none)
-  call crimson-night#highlight('StatusLineTermNC', s:palette.grey0, s:palette.none)
-  call crimson-night#highlight('TabLine', s:palette.grey2, s:palette.bg3)
-  call crimson-night#highlight('TabLineFill', s:palette.grey1, s:palette.none)
-  call crimson-night#highlight('TabLineSel', s:palette.bg0, s:palette.statusline1)
+  call crimsonnight#highlight('StatusLine', s:palette.grey1, s:palette.none)
+  call crimsonnight#highlight('StatusLineTerm', s:palette.grey1, s:palette.none)
+  call crimsonnight#highlight('StatusLineNC', s:palette.grey0, s:palette.none)
+  call crimsonnight#highlight('StatusLineTermNC', s:palette.grey0, s:palette.none)
+  call crimsonnight#highlight('TabLine', s:palette.grey2, s:palette.bg3)
+  call crimsonnight#highlight('TabLineFill', s:palette.grey1, s:palette.none)
+  call crimsonnight#highlight('TabLineSel', s:palette.bg0, s:palette.statusline1)
   if has('nvim')
-    call crimson-night#highlight('WinBar', s:palette.grey1, s:palette.none, 'bold')
-    call crimson-night#highlight('WinBarNC', s:palette.grey0, s:palette.none)
+    call crimsonnight#highlight('WinBar', s:palette.grey1, s:palette.none, 'bold')
+    call crimsonnight#highlight('WinBarNC', s:palette.grey0, s:palette.none)
   endif
 else
-  call crimson-night#highlight('StatusLine', s:palette.grey1, s:palette.bg2)
-  call crimson-night#highlight('StatusLineTerm', s:palette.grey1, s:palette.bg1)
-  call crimson-night#highlight('StatusLineNC', s:palette.grey1, s:palette.bg1)
-  call crimson-night#highlight('StatusLineTermNC', s:palette.grey1, s:palette.bg0)
-  call crimson-night#highlight('TabLine', s:palette.grey2, s:palette.bg3)
-  call crimson-night#highlight('TabLineFill', s:palette.grey1, s:palette.bg1)
-  call crimson-night#highlight('TabLineSel', s:palette.bg0, s:palette.statusline1)
+  call crimsonnight#highlight('StatusLine', s:palette.grey1, s:palette.bg2)
+  call crimsonnight#highlight('StatusLineTerm', s:palette.grey1, s:palette.bg1)
+  call crimsonnight#highlight('StatusLineNC', s:palette.grey1, s:palette.bg1)
+  call crimsonnight#highlight('StatusLineTermNC', s:palette.grey1, s:palette.bg0)
+  call crimsonnight#highlight('TabLine', s:palette.grey2, s:palette.bg3)
+  call crimsonnight#highlight('TabLineFill', s:palette.grey1, s:palette.bg1)
+  call crimsonnight#highlight('TabLineSel', s:palette.bg0, s:palette.statusline1)
   if has('nvim')
-    call crimson-night#highlight('WinBar', s:palette.grey1, s:palette.bg2, 'bold')
-    call crimson-night#highlight('WinBarNC', s:palette.grey1, s:palette.bg1)
+    call crimsonnight#highlight('WinBar', s:palette.grey1, s:palette.bg2, 'bold')
+    call crimsonnight#highlight('WinBarNC', s:palette.grey1, s:palette.bg1)
   endif
 endif
 if s:configuration.dim_inactive_windows
-  call crimson-night#highlight('VertSplit', s:palette.bg4, s:palette.bg_dim)
+  call crimsonnight#highlight('VertSplit', s:palette.bg4, s:palette.bg_dim)
 else
-  call crimson-night#highlight('VertSplit', s:palette.bg4, s:palette.none)
+  call crimsonnight#highlight('VertSplit', s:palette.bg4, s:palette.none)
 endif
 highlight! link WinSeparator VertSplit
-call crimson-night#highlight('Visual', s:palette.none, s:palette.bg_visual)
-call crimson-night#highlight('VisualNOS', s:palette.none, s:palette.bg_visual)
-call crimson-night#highlight('QuickFixLine', s:palette.purple, s:palette.none, 'bold')
-call crimson-night#highlight('Debug', s:palette.orange, s:palette.none)
-call crimson-night#highlight('debugPC', s:palette.bg0, s:palette.green)
-call crimson-night#highlight('debugBreakpoint', s:palette.bg0, s:palette.red)
-call crimson-night#highlight('ToolbarButton', s:palette.bg0, s:palette.green)
+call crimsonnight#highlight('Visual', s:palette.none, s:palette.bg_visual)
+call crimsonnight#highlight('VisualNOS', s:palette.none, s:palette.bg_visual)
+call crimsonnight#highlight('QuickFixLine', s:palette.purple, s:palette.none, 'bold')
+call crimsonnight#highlight('Debug', s:palette.orange, s:palette.none)
+call crimsonnight#highlight('debugPC', s:palette.bg0, s:palette.green)
+call crimsonnight#highlight('debugBreakpoint', s:palette.bg0, s:palette.red)
+call crimsonnight#highlight('ToolbarButton', s:palette.bg0, s:palette.green)
 if has('nvim')
-  call crimson-night#highlight('Substitute', s:palette.bg0, s:palette.yellow)
+  call crimsonnight#highlight('Substitute', s:palette.bg0, s:palette.yellow)
   if s:configuration.diagnostic_text_highlight
-    call crimson-night#highlight('DiagnosticError', s:palette.red, s:palette.bg_red)
-    call crimson-night#highlight('DiagnosticUnderlineError', s:palette.none, s:palette.bg_red, 'undercurl', s:palette.red)
-    call crimson-night#highlight('DiagnosticWarn', s:palette.yellow, s:palette.bg_yellow)
-    call crimson-night#highlight('DiagnosticUnderlineWarn', s:palette.none, s:palette.bg_yellow, 'undercurl', s:palette.yellow)
-    call crimson-night#highlight('DiagnosticInfo', s:palette.blue, s:palette.bg_blue)
-    call crimson-night#highlight('DiagnosticUnderlineInfo', s:palette.none, s:palette.bg_blue, 'undercurl', s:palette.blue)
-    call crimson-night#highlight('DiagnosticHint', s:palette.green, s:palette.bg_green)
-    call crimson-night#highlight('DiagnosticUnderlineHint', s:palette.none, s:palette.bg_green, 'undercurl', s:palette.green)
+    call crimsonnight#highlight('DiagnosticError', s:palette.red, s:palette.bg_red)
+    call crimsonnight#highlight('DiagnosticUnderlineError', s:palette.none, s:palette.bg_red, 'undercurl', s:palette.red)
+    call crimsonnight#highlight('DiagnosticWarn', s:palette.yellow, s:palette.bg_yellow)
+    call crimsonnight#highlight('DiagnosticUnderlineWarn', s:palette.none, s:palette.bg_yellow, 'undercurl', s:palette.yellow)
+    call crimsonnight#highlight('DiagnosticInfo', s:palette.blue, s:palette.bg_blue)
+    call crimsonnight#highlight('DiagnosticUnderlineInfo', s:palette.none, s:palette.bg_blue, 'undercurl', s:palette.blue)
+    call crimsonnight#highlight('DiagnosticHint', s:palette.green, s:palette.bg_green)
+    call crimsonnight#highlight('DiagnosticUnderlineHint', s:palette.none, s:palette.bg_green, 'undercurl', s:palette.green)
   else
-    call crimson-night#highlight('DiagnosticError', s:palette.red, s:palette.none)
-    call crimson-night#highlight('DiagnosticUnderlineError', s:palette.none, s:palette.none, 'undercurl', s:palette.red)
-    call crimson-night#highlight('DiagnosticWarn', s:palette.yellow, s:palette.none)
-    call crimson-night#highlight('DiagnosticUnderlineWarn', s:palette.none, s:palette.none, 'undercurl', s:palette.yellow)
-    call crimson-night#highlight('DiagnosticInfo', s:palette.blue, s:palette.none)
-    call crimson-night#highlight('DiagnosticUnderlineInfo', s:palette.none, s:palette.none, 'undercurl', s:palette.blue)
-    call crimson-night#highlight('DiagnosticHint', s:palette.green, s:palette.none)
-    call crimson-night#highlight('DiagnosticUnderlineHint', s:palette.none, s:palette.none, 'undercurl', s:palette.green)
+    call crimsonnight#highlight('DiagnosticError', s:palette.red, s:palette.none)
+    call crimsonnight#highlight('DiagnosticUnderlineError', s:palette.none, s:palette.none, 'undercurl', s:palette.red)
+    call crimsonnight#highlight('DiagnosticWarn', s:palette.yellow, s:palette.none)
+    call crimsonnight#highlight('DiagnosticUnderlineWarn', s:palette.none, s:palette.none, 'undercurl', s:palette.yellow)
+    call crimsonnight#highlight('DiagnosticInfo', s:palette.blue, s:palette.none)
+    call crimsonnight#highlight('DiagnosticUnderlineInfo', s:palette.none, s:palette.none, 'undercurl', s:palette.blue)
+    call crimsonnight#highlight('DiagnosticHint', s:palette.green, s:palette.none)
+    call crimsonnight#highlight('DiagnosticUnderlineHint', s:palette.none, s:palette.none, 'undercurl', s:palette.green)
   endif
   highlight! link DiagnosticFloatingError ErrorFloat
   highlight! link DiagnosticFloatingWarn WarningFloat
@@ -275,120 +275,120 @@ if has('nvim')
 endif
 " }}}
 " Syntax: {{{
-call crimson-night#highlight('Boolean', s:palette.purple, s:palette.none)
-call crimson-night#highlight('Number', s:palette.purple, s:palette.none)
-call crimson-night#highlight('Float', s:palette.purple, s:palette.none)
+call crimsonnight#highlight('Boolean', s:palette.purple, s:palette.none)
+call crimsonnight#highlight('Number', s:palette.purple, s:palette.none)
+call crimsonnight#highlight('Float', s:palette.purple, s:palette.none)
 if s:configuration.enable_italic
-  call crimson-night#highlight('PreProc', s:palette.purple, s:palette.none, 'italic')
-  call crimson-night#highlight('PreCondit', s:palette.purple, s:palette.none, 'italic')
-  call crimson-night#highlight('Include', s:palette.purple, s:palette.none, 'italic')
-  call crimson-night#highlight('Define', s:palette.purple, s:palette.none, 'italic')
-  call crimson-night#highlight('Conditional', s:palette.red, s:palette.none, 'italic')
-  call crimson-night#highlight('Repeat', s:palette.red, s:palette.none, 'italic')
-  call crimson-night#highlight('Keyword', s:palette.red, s:palette.none, 'italic')
-  call crimson-night#highlight('Typedef', s:palette.red, s:palette.none, 'italic')
-  call crimson-night#highlight('Exception', s:palette.red, s:palette.none, 'italic')
-  call crimson-night#highlight('Statement', s:palette.red, s:palette.none, 'italic')
+  call crimsonnight#highlight('PreProc', s:palette.purple, s:palette.none, 'italic')
+  call crimsonnight#highlight('PreCondit', s:palette.purple, s:palette.none, 'italic')
+  call crimsonnight#highlight('Include', s:palette.purple, s:palette.none, 'italic')
+  call crimsonnight#highlight('Define', s:palette.purple, s:palette.none, 'italic')
+  call crimsonnight#highlight('Conditional', s:palette.red, s:palette.none, 'italic')
+  call crimsonnight#highlight('Repeat', s:palette.red, s:palette.none, 'italic')
+  call crimsonnight#highlight('Keyword', s:palette.red, s:palette.none, 'italic')
+  call crimsonnight#highlight('Typedef', s:palette.red, s:palette.none, 'italic')
+  call crimsonnight#highlight('Exception', s:palette.red, s:palette.none, 'italic')
+  call crimsonnight#highlight('Statement', s:palette.red, s:palette.none, 'italic')
 else
-  call crimson-night#highlight('PreProc', s:palette.purple, s:palette.none)
-  call crimson-night#highlight('PreCondit', s:palette.purple, s:palette.none)
-  call crimson-night#highlight('Include', s:palette.purple, s:palette.none)
-  call crimson-night#highlight('Define', s:palette.purple, s:palette.none)
-  call crimson-night#highlight('Conditional', s:palette.red, s:palette.none)
-  call crimson-night#highlight('Repeat', s:palette.red, s:palette.none)
-  call crimson-night#highlight('Keyword', s:palette.red, s:palette.none)
-  call crimson-night#highlight('Typedef', s:palette.red, s:palette.none)
-  call crimson-night#highlight('Exception', s:palette.red, s:palette.none)
-  call crimson-night#highlight('Statement', s:palette.red, s:palette.none)
+  call crimsonnight#highlight('PreProc', s:palette.purple, s:palette.none)
+  call crimsonnight#highlight('PreCondit', s:palette.purple, s:palette.none)
+  call crimsonnight#highlight('Include', s:palette.purple, s:palette.none)
+  call crimsonnight#highlight('Define', s:palette.purple, s:palette.none)
+  call crimsonnight#highlight('Conditional', s:palette.red, s:palette.none)
+  call crimsonnight#highlight('Repeat', s:palette.red, s:palette.none)
+  call crimsonnight#highlight('Keyword', s:palette.red, s:palette.none)
+  call crimsonnight#highlight('Typedef', s:palette.red, s:palette.none)
+  call crimsonnight#highlight('Exception', s:palette.red, s:palette.none)
+  call crimsonnight#highlight('Statement', s:palette.red, s:palette.none)
 endif
-call crimson-night#highlight('Error', s:palette.red, s:palette.none)
-call crimson-night#highlight('StorageClass', s:palette.orange, s:palette.none)
-call crimson-night#highlight('Tag', s:palette.orange, s:palette.none)
-call crimson-night#highlight('Label', s:palette.orange, s:palette.none)
-call crimson-night#highlight('Structure', s:palette.orange, s:palette.none)
-call crimson-night#highlight('Operator', s:palette.orange, s:palette.none)
-call crimson-night#highlight('Title', s:palette.orange, s:palette.none, 'bold')
-call crimson-night#highlight('Special', s:palette.yellow, s:palette.none)
-call crimson-night#highlight('SpecialChar', s:palette.yellow, s:palette.none)
-call crimson-night#highlight('Type', s:palette.yellow, s:palette.none)
-call crimson-night#highlight('Function', s:palette.green, s:palette.none)
-call crimson-night#highlight('String', s:palette.green, s:palette.none)
-call crimson-night#highlight('Character', s:palette.green, s:palette.none)
-call crimson-night#highlight('Constant', s:palette.aqua, s:palette.none)
-call crimson-night#highlight('Macro', s:palette.aqua, s:palette.none)
-call crimson-night#highlight('Identifier', s:palette.blue, s:palette.none)
-call crimson-night#highlight('Todo', s:palette.bg0, s:palette.blue, 'bold')
+call crimsonnight#highlight('Error', s:palette.red, s:palette.none)
+call crimsonnight#highlight('StorageClass', s:palette.orange, s:palette.none)
+call crimsonnight#highlight('Tag', s:palette.orange, s:palette.none)
+call crimsonnight#highlight('Label', s:palette.orange, s:palette.none)
+call crimsonnight#highlight('Structure', s:palette.orange, s:palette.none)
+call crimsonnight#highlight('Operator', s:palette.orange, s:palette.none)
+call crimsonnight#highlight('Title', s:palette.orange, s:palette.none, 'bold')
+call crimsonnight#highlight('Special', s:palette.yellow, s:palette.none)
+call crimsonnight#highlight('SpecialChar', s:palette.yellow, s:palette.none)
+call crimsonnight#highlight('Type', s:palette.yellow, s:palette.none)
+call crimsonnight#highlight('Function', s:palette.green, s:palette.none)
+call crimsonnight#highlight('String', s:palette.green, s:palette.none)
+call crimsonnight#highlight('Character', s:palette.green, s:palette.none)
+call crimsonnight#highlight('Constant', s:palette.aqua, s:palette.none)
+call crimsonnight#highlight('Macro', s:palette.aqua, s:palette.none)
+call crimsonnight#highlight('Identifier', s:palette.blue, s:palette.none)
+call crimsonnight#highlight('Todo', s:palette.bg0, s:palette.blue, 'bold')
 if s:configuration.disable_italic_comment
-  call crimson-night#highlight('Comment', s:palette.grey1, s:palette.none)
-  call crimson-night#highlight('SpecialComment', s:palette.grey1, s:palette.none)
+  call crimsonnight#highlight('Comment', s:palette.grey1, s:palette.none)
+  call crimsonnight#highlight('SpecialComment', s:palette.grey1, s:palette.none)
 else
-  call crimson-night#highlight('Comment', s:palette.grey1, s:palette.none, 'italic')
-  call crimson-night#highlight('SpecialComment', s:palette.grey1, s:palette.none, 'italic')
+  call crimsonnight#highlight('Comment', s:palette.grey1, s:palette.none, 'italic')
+  call crimsonnight#highlight('SpecialComment', s:palette.grey1, s:palette.none, 'italic')
 endif
-call crimson-night#highlight('Delimiter', s:palette.fg, s:palette.none)
-call crimson-night#highlight('Ignore', s:palette.grey1, s:palette.none)
-call crimson-night#highlight('Underlined', s:palette.none, s:palette.none, 'underline')
+call crimsonnight#highlight('Delimiter', s:palette.fg, s:palette.none)
+call crimsonnight#highlight('Ignore', s:palette.grey1, s:palette.none)
+call crimsonnight#highlight('Underlined', s:palette.none, s:palette.none, 'underline')
 " }}}
 " Predefined Highlight Groups: {{{
-call crimson-night#highlight('Fg', s:palette.fg, s:palette.none)
-call crimson-night#highlight('Grey', s:palette.grey1, s:palette.none)
-call crimson-night#highlight('Red', s:palette.red, s:palette.none)
-call crimson-night#highlight('Orange', s:palette.orange, s:palette.none)
-call crimson-night#highlight('Yellow', s:palette.yellow, s:palette.none)
-call crimson-night#highlight('Green', s:palette.green, s:palette.none)
-call crimson-night#highlight('Aqua', s:palette.aqua, s:palette.none)
-call crimson-night#highlight('Blue', s:palette.blue, s:palette.none)
-call crimson-night#highlight('Purple', s:palette.purple, s:palette.none)
+call crimsonnight#highlight('Fg', s:palette.fg, s:palette.none)
+call crimsonnight#highlight('Grey', s:palette.grey1, s:palette.none)
+call crimsonnight#highlight('Red', s:palette.red, s:palette.none)
+call crimsonnight#highlight('Orange', s:palette.orange, s:palette.none)
+call crimsonnight#highlight('Yellow', s:palette.yellow, s:palette.none)
+call crimsonnight#highlight('Green', s:palette.green, s:palette.none)
+call crimsonnight#highlight('Aqua', s:palette.aqua, s:palette.none)
+call crimsonnight#highlight('Blue', s:palette.blue, s:palette.none)
+call crimsonnight#highlight('Purple', s:palette.purple, s:palette.none)
 if s:configuration.enable_italic
-  call crimson-night#highlight('RedItalic', s:palette.red, s:palette.none, 'italic')
-  call crimson-night#highlight('OrangeItalic', s:palette.orange, s:palette.none, 'italic')
-  call crimson-night#highlight('YellowItalic', s:palette.yellow, s:palette.none, 'italic')
-  call crimson-night#highlight('GreenItalic', s:palette.green, s:palette.none, 'italic')
-  call crimson-night#highlight('AquaItalic', s:palette.aqua, s:palette.none, 'italic')
-  call crimson-night#highlight('BlueItalic', s:palette.blue, s:palette.none, 'italic')
-  call crimson-night#highlight('PurpleItalic', s:palette.purple, s:palette.none, 'italic')
+  call crimsonnight#highlight('RedItalic', s:palette.red, s:palette.none, 'italic')
+  call crimsonnight#highlight('OrangeItalic', s:palette.orange, s:palette.none, 'italic')
+  call crimsonnight#highlight('YellowItalic', s:palette.yellow, s:palette.none, 'italic')
+  call crimsonnight#highlight('GreenItalic', s:palette.green, s:palette.none, 'italic')
+  call crimsonnight#highlight('AquaItalic', s:palette.aqua, s:palette.none, 'italic')
+  call crimsonnight#highlight('BlueItalic', s:palette.blue, s:palette.none, 'italic')
+  call crimsonnight#highlight('PurpleItalic', s:palette.purple, s:palette.none, 'italic')
 else
-  call crimson-night#highlight('RedItalic', s:palette.red, s:palette.none)
-  call crimson-night#highlight('OrangeItalic', s:palette.orange, s:palette.none)
-  call crimson-night#highlight('YellowItalic', s:palette.yellow, s:palette.none)
-  call crimson-night#highlight('GreenItalic', s:palette.green, s:palette.none)
-  call crimson-night#highlight('AquaItalic', s:palette.aqua, s:palette.none)
-  call crimson-night#highlight('BlueItalic', s:palette.blue, s:palette.none)
-  call crimson-night#highlight('PurpleItalic', s:palette.purple, s:palette.none)
+  call crimsonnight#highlight('RedItalic', s:palette.red, s:palette.none)
+  call crimsonnight#highlight('OrangeItalic', s:palette.orange, s:palette.none)
+  call crimsonnight#highlight('YellowItalic', s:palette.yellow, s:palette.none)
+  call crimsonnight#highlight('GreenItalic', s:palette.green, s:palette.none)
+  call crimsonnight#highlight('AquaItalic', s:palette.aqua, s:palette.none)
+  call crimsonnight#highlight('BlueItalic', s:palette.blue, s:palette.none)
+  call crimsonnight#highlight('PurpleItalic', s:palette.purple, s:palette.none)
 endif
 if s:configuration.transparent_background || s:configuration.sign_column_background ==# 'none'
-  call crimson-night#highlight('RedSign', s:palette.red, s:palette.none)
-  call crimson-night#highlight('OrangeSign', s:palette.orange, s:palette.none)
-  call crimson-night#highlight('YellowSign', s:palette.yellow, s:palette.none)
-  call crimson-night#highlight('GreenSign', s:palette.green, s:palette.none)
-  call crimson-night#highlight('AquaSign', s:palette.aqua, s:palette.none)
-  call crimson-night#highlight('BlueSign', s:palette.blue, s:palette.none)
-  call crimson-night#highlight('PurpleSign', s:palette.purple, s:palette.none)
+  call crimsonnight#highlight('RedSign', s:palette.red, s:palette.none)
+  call crimsonnight#highlight('OrangeSign', s:palette.orange, s:palette.none)
+  call crimsonnight#highlight('YellowSign', s:palette.yellow, s:palette.none)
+  call crimsonnight#highlight('GreenSign', s:palette.green, s:palette.none)
+  call crimsonnight#highlight('AquaSign', s:palette.aqua, s:palette.none)
+  call crimsonnight#highlight('BlueSign', s:palette.blue, s:palette.none)
+  call crimsonnight#highlight('PurpleSign', s:palette.purple, s:palette.none)
 else
-  call crimson-night#highlight('RedSign', s:palette.red, s:palette.bg1)
-  call crimson-night#highlight('OrangeSign', s:palette.orange, s:palette.bg1)
-  call crimson-night#highlight('YellowSign', s:palette.yellow, s:palette.bg1)
-  call crimson-night#highlight('GreenSign', s:palette.green, s:palette.bg1)
-  call crimson-night#highlight('AquaSign', s:palette.aqua, s:palette.bg1)
-  call crimson-night#highlight('BlueSign', s:palette.blue, s:palette.bg1)
-  call crimson-night#highlight('PurpleSign', s:palette.purple, s:palette.bg1)
+  call crimsonnight#highlight('RedSign', s:palette.red, s:palette.bg1)
+  call crimsonnight#highlight('OrangeSign', s:palette.orange, s:palette.bg1)
+  call crimsonnight#highlight('YellowSign', s:palette.yellow, s:palette.bg1)
+  call crimsonnight#highlight('GreenSign', s:palette.green, s:palette.bg1)
+  call crimsonnight#highlight('AquaSign', s:palette.aqua, s:palette.bg1)
+  call crimsonnight#highlight('BlueSign', s:palette.blue, s:palette.bg1)
+  call crimsonnight#highlight('PurpleSign', s:palette.purple, s:palette.bg1)
 endif
 if s:configuration.diagnostic_text_highlight
-  call crimson-night#highlight('ErrorText', s:palette.none, s:palette.bg_red, 'undercurl', s:palette.red)
-  call crimson-night#highlight('WarningText', s:palette.none, s:palette.bg_yellow, 'undercurl', s:palette.yellow)
-  call crimson-night#highlight('InfoText', s:palette.none, s:palette.bg_blue, 'undercurl', s:palette.blue)
-  call crimson-night#highlight('HintText', s:palette.none, s:palette.bg_green, 'undercurl', s:palette.green)
+  call crimsonnight#highlight('ErrorText', s:palette.none, s:palette.bg_red, 'undercurl', s:palette.red)
+  call crimsonnight#highlight('WarningText', s:palette.none, s:palette.bg_yellow, 'undercurl', s:palette.yellow)
+  call crimsonnight#highlight('InfoText', s:palette.none, s:palette.bg_blue, 'undercurl', s:palette.blue)
+  call crimsonnight#highlight('HintText', s:palette.none, s:palette.bg_green, 'undercurl', s:palette.green)
 else
-  call crimson-night#highlight('ErrorText', s:palette.none, s:palette.none, 'undercurl', s:palette.red)
-  call crimson-night#highlight('WarningText', s:palette.none, s:palette.none, 'undercurl', s:palette.yellow)
-  call crimson-night#highlight('InfoText', s:palette.none, s:palette.none, 'undercurl', s:palette.blue)
-  call crimson-night#highlight('HintText', s:palette.none, s:palette.none, 'undercurl', s:palette.green)
+  call crimsonnight#highlight('ErrorText', s:palette.none, s:palette.none, 'undercurl', s:palette.red)
+  call crimsonnight#highlight('WarningText', s:palette.none, s:palette.none, 'undercurl', s:palette.yellow)
+  call crimsonnight#highlight('InfoText', s:palette.none, s:palette.none, 'undercurl', s:palette.blue)
+  call crimsonnight#highlight('HintText', s:palette.none, s:palette.none, 'undercurl', s:palette.green)
 endif
 if s:configuration.diagnostic_line_highlight
-  call crimson-night#highlight('ErrorLine', s:palette.none, s:palette.bg_red)
-  call crimson-night#highlight('WarningLine', s:palette.none, s:palette.bg_yellow)
-  call crimson-night#highlight('InfoLine', s:palette.none, s:palette.bg_blue)
-  call crimson-night#highlight('HintLine', s:palette.none, s:palette.bg_green)
+  call crimsonnight#highlight('ErrorLine', s:palette.none, s:palette.bg_red)
+  call crimsonnight#highlight('WarningLine', s:palette.none, s:palette.bg_yellow)
+  call crimsonnight#highlight('InfoLine', s:palette.none, s:palette.bg_blue)
+  call crimsonnight#highlight('HintLine', s:palette.none, s:palette.bg_green)
 else
   highlight clear ErrorLine
   highlight clear WarningLine
@@ -406,31 +406,31 @@ elseif s:configuration.diagnostic_virtual_text ==# 'colored'
   highlight! link VirtualTextInfo Blue
   highlight! link VirtualTextHint Green
 else
-  call crimson-night#highlight('VirtualTextWarning', s:palette.yellow, s:palette.bg_yellow)
-  call crimson-night#highlight('VirtualTextError', s:palette.red, s:palette.bg_red)
-  call crimson-night#highlight('VirtualTextInfo', s:palette.blue, s:palette.bg_blue)
-  call crimson-night#highlight('VirtualTextHint', s:palette.green, s:palette.bg_green)
+  call crimsonnight#highlight('VirtualTextWarning', s:palette.yellow, s:palette.bg_yellow)
+  call crimsonnight#highlight('VirtualTextError', s:palette.red, s:palette.bg_red)
+  call crimsonnight#highlight('VirtualTextInfo', s:palette.blue, s:palette.bg_blue)
+  call crimsonnight#highlight('VirtualTextHint', s:palette.green, s:palette.bg_green)
 endif
-call crimson-night#highlight('ErrorFloat', s:palette.red, s:palette.none)
-call crimson-night#highlight('WarningFloat', s:palette.yellow, s:palette.none)
-call crimson-night#highlight('InfoFloat', s:palette.blue, s:palette.none)
-call crimson-night#highlight('HintFloat', s:palette.green, s:palette.none)
+call crimsonnight#highlight('ErrorFloat', s:palette.red, s:palette.none)
+call crimsonnight#highlight('WarningFloat', s:palette.yellow, s:palette.none)
+call crimsonnight#highlight('InfoFloat', s:palette.blue, s:palette.none)
+call crimsonnight#highlight('HintFloat', s:palette.green, s:palette.none)
 if &diff
-  call crimson-night#highlight('CurrentWord', s:palette.bg0, s:palette.green)
+  call crimsonnight#highlight('CurrentWord', s:palette.bg0, s:palette.green)
 elseif s:configuration.current_word ==# 'grey background'
-  call crimson-night#highlight('CurrentWord', s:palette.none, s:palette.bg2)
+  call crimsonnight#highlight('CurrentWord', s:palette.none, s:palette.bg2)
 elseif s:configuration.current_word ==# 'high contrast background'
-  call crimson-night#highlight('CurrentWord', s:palette.none, s:palette.bg3)
+  call crimsonnight#highlight('CurrentWord', s:palette.none, s:palette.bg3)
 else
-  call crimson-night#highlight('CurrentWord', s:palette.none, s:palette.none, s:configuration.current_word)
+  call crimsonnight#highlight('CurrentWord', s:palette.none, s:palette.none, s:configuration.current_word)
 endif
 if s:configuration.inlay_hints_background ==# 'none'
   highlight! link InlayHints LineNr
 else
-  call crimson-night#highlight('InlayHints', s:palette.grey1, s:palette.bg_dim)
+  call crimsonnight#highlight('InlayHints', s:palette.grey1, s:palette.bg_dim)
 endif
 " Define a color for each LSP item kind to create highlights for nvim-cmp, aerial.nvim, nvim-navic and coc.nvim
-let g:crimson-night_lsp_kind_color = [
+let g:crimsonnight_lsp_kind_color = [
       \ ["Array", "Aqua"],
       \ ["Boolean", "Aqua"],
       \ ["Class", "Red"],
@@ -511,12 +511,12 @@ endif
 " }}}
 " Plugins: {{{
 " nvim-treesitter/nvim-treesitter {{{
-call crimson-night#highlight('TSStrong', s:palette.none, s:palette.none, 'bold')
-call crimson-night#highlight('TSEmphasis', s:palette.none, s:palette.none, 'italic')
-call crimson-night#highlight('TSUnderline', s:palette.none, s:palette.none, 'underline')
-call crimson-night#highlight('TSNote', s:palette.bg0, s:palette.green, 'bold')
-call crimson-night#highlight('TSWarning', s:palette.bg0, s:palette.yellow, 'bold')
-call crimson-night#highlight('TSDanger', s:palette.bg0, s:palette.red, 'bold')
+call crimsonnight#highlight('TSStrong', s:palette.none, s:palette.none, 'bold')
+call crimsonnight#highlight('TSEmphasis', s:palette.none, s:palette.none, 'italic')
+call crimsonnight#highlight('TSUnderline', s:palette.none, s:palette.none, 'underline')
+call crimsonnight#highlight('TSNote', s:palette.bg0, s:palette.green, 'bold')
+call crimsonnight#highlight('TSWarning', s:palette.bg0, s:palette.yellow, 'bold')
+call crimsonnight#highlight('TSDanger', s:palette.bg0, s:palette.red, 'bold')
 highlight! link TSAnnotation Purple
 highlight! link TSAttribute Purple
 highlight! link TSBoolean Purple
@@ -581,7 +581,7 @@ highlight! link TSType YellowItalic
 highlight! link TSTypeBuiltin YellowItalic
 highlight! link TSTypeDefinition YellowItalic
 highlight! link TSTypeQualifier Orange
-call crimson-night#highlight('TSURI', s:palette.blue, s:palette.none, 'underline')
+call crimsonnight#highlight('TSURI', s:palette.blue, s:palette.none, 'underline')
 highlight! link TSVariable Fg
 highlight! link TSVariableBuiltin PurpleItalic
 if has('nvim-0.8')
@@ -733,7 +733,7 @@ if has('nvim-0.9')
   highlight! link @lsp.type.type TSType
   highlight! link @lsp.type.typeParameter TSTypeDefinition
   highlight! link @lsp.type.variable TSVariable
-  call crimson-night#highlight('DiagnosticUnnecessary', s:palette.grey1, s:palette.none)
+  call crimsonnight#highlight('DiagnosticUnnecessary', s:palette.grey1, s:palette.none)
 endif
 highlight! link TSModuleInfoGood Green
 highlight! link TSModuleInfoBad Red
@@ -742,11 +742,11 @@ highlight! link TSModuleInfoBad Red
 highlight! link CopilotSuggestion Grey
 " }}}
 " neoclide/coc.nvim {{{
-call crimson-night#highlight('CocHoverRange', s:palette.none, s:palette.none, 'bold,underline')
-call crimson-night#highlight('CocSearch', s:palette.green, s:palette.none, 'bold')
-call crimson-night#highlight('CocPumSearch', s:palette.green, s:palette.none, 'bold')
-call crimson-night#highlight('CocMarkdownHeader', s:palette.orange, s:palette.none, 'bold')
-call crimson-night#highlight('CocMarkdownLink', s:palette.green, s:palette.none, 'underline')
+call crimsonnight#highlight('CocHoverRange', s:palette.none, s:palette.none, 'bold,underline')
+call crimsonnight#highlight('CocSearch', s:palette.green, s:palette.none, 'bold')
+call crimsonnight#highlight('CocPumSearch', s:palette.green, s:palette.none, 'bold')
+call crimsonnight#highlight('CocMarkdownHeader', s:palette.orange, s:palette.none, 'bold')
+call crimsonnight#highlight('CocMarkdownLink', s:palette.green, s:palette.none, 'underline')
 highlight! link CocMarkdownCode Green
 highlight! link CocPumShortcut Grey
 highlight! link CocPumVirtualText Grey
@@ -910,28 +910,28 @@ highlight! link SyntasticWarningLine WarningLine
 " }}}
 " Yggdroot/LeaderF {{{
 if !exists('g:Lf_StlColorscheme')
-  let g:Lf_StlColorscheme = 'crimson-night'
+  let g:Lf_StlColorscheme = 'crimsonnight'
 endif
 if !exists('g:Lf_PopupColorscheme')
-  let g:Lf_PopupColorscheme = 'crimson-night'
+  let g:Lf_PopupColorscheme = 'crimsonnight'
 endif
-call crimson-night#highlight('Lf_hl_match', s:palette.green, s:palette.none, 'bold')
-call crimson-night#highlight('Lf_hl_match0', s:palette.green, s:palette.none, 'bold')
-call crimson-night#highlight('Lf_hl_match1', s:palette.aqua, s:palette.none, 'bold')
-call crimson-night#highlight('Lf_hl_match2', s:palette.blue, s:palette.none, 'bold')
-call crimson-night#highlight('Lf_hl_match3', s:palette.purple, s:palette.none, 'bold')
-call crimson-night#highlight('Lf_hl_match4', s:palette.orange, s:palette.none, 'bold')
-call crimson-night#highlight('Lf_hl_matchRefine', s:palette.red, s:palette.none, 'bold')
-call crimson-night#highlight('Lf_hl_popup_normalMode', s:palette.bg0, s:palette.red, 'bold')
-call crimson-night#highlight('Lf_hl_popup_inputMode', s:palette.bg0, s:palette.green, 'bold')
-call crimson-night#highlight('Lf_hl_popup_category', s:palette.fg, s:palette.bg4)
-call crimson-night#highlight('Lf_hl_popup_nameOnlyMode', s:palette.fg, s:palette.bg3)
-call crimson-night#highlight('Lf_hl_popup_fullPathMode', s:palette.fg, s:palette.bg3)
-call crimson-night#highlight('Lf_hl_popup_fuzzyMode', s:palette.fg, s:palette.bg3)
-call crimson-night#highlight('Lf_hl_popup_regexMode', s:palette.fg, s:palette.bg3)
-call crimson-night#highlight('Lf_hl_popup_lineInfo', s:palette.yellow, s:palette.bg4)
-call crimson-night#highlight('Lf_hl_popup_total', s:palette.bg0, s:palette.orange)
-call crimson-night#highlight('Lf_hl_popup_cursor', s:palette.bg0, s:palette.green)
+call crimsonnight#highlight('Lf_hl_match', s:palette.green, s:palette.none, 'bold')
+call crimsonnight#highlight('Lf_hl_match0', s:palette.green, s:palette.none, 'bold')
+call crimsonnight#highlight('Lf_hl_match1', s:palette.aqua, s:palette.none, 'bold')
+call crimsonnight#highlight('Lf_hl_match2', s:palette.blue, s:palette.none, 'bold')
+call crimsonnight#highlight('Lf_hl_match3', s:palette.purple, s:palette.none, 'bold')
+call crimsonnight#highlight('Lf_hl_match4', s:palette.orange, s:palette.none, 'bold')
+call crimsonnight#highlight('Lf_hl_matchRefine', s:palette.red, s:palette.none, 'bold')
+call crimsonnight#highlight('Lf_hl_popup_normalMode', s:palette.bg0, s:palette.red, 'bold')
+call crimsonnight#highlight('Lf_hl_popup_inputMode', s:palette.bg0, s:palette.green, 'bold')
+call crimsonnight#highlight('Lf_hl_popup_category', s:palette.fg, s:palette.bg4)
+call crimsonnight#highlight('Lf_hl_popup_nameOnlyMode', s:palette.fg, s:palette.bg3)
+call crimsonnight#highlight('Lf_hl_popup_fullPathMode', s:palette.fg, s:palette.bg3)
+call crimsonnight#highlight('Lf_hl_popup_fuzzyMode', s:palette.fg, s:palette.bg3)
+call crimsonnight#highlight('Lf_hl_popup_regexMode', s:palette.fg, s:palette.bg3)
+call crimsonnight#highlight('Lf_hl_popup_lineInfo', s:palette.yellow, s:palette.bg4)
+call crimsonnight#highlight('Lf_hl_popup_total', s:palette.bg0, s:palette.orange)
+call crimsonnight#highlight('Lf_hl_popup_cursor', s:palette.bg0, s:palette.green)
 highlight! link Lf_hl_cursorline Fg
 highlight! link Lf_hl_selection DiffAdd
 highlight! link Lf_hl_rgHighlight Visual
@@ -944,19 +944,19 @@ highlight! link Lf_hl_popup_blank Lf_hl_popup_window
 highlight! link Lf_hl_popup_spin Red
 " }}}
 " liuchengxu/vim-clap {{{
-call crimson-night#highlight('ClapSelected', s:palette.red, s:palette.none, 'bold')
-call crimson-night#highlight('ClapCurrentSelection', s:palette.none, s:palette.bg1, 'bold')
-call crimson-night#highlight('ClapSpinner', s:palette.orange, s:palette.bg2, 'bold')
-call crimson-night#highlight('ClapBlines', s:palette.fg, s:palette.none)
-call crimson-night#highlight('ClapProviderId', s:palette.fg, s:palette.none, 'bold')
-call crimson-night#highlight('ClapMatches1', s:palette.red, s:palette.none, 'bold')
-call crimson-night#highlight('ClapMatches2', s:palette.orange, s:palette.none, 'bold')
-call crimson-night#highlight('ClapMatches3', s:palette.yellow, s:palette.none, 'bold')
-call crimson-night#highlight('ClapMatches4', s:palette.aqua, s:palette.none, 'bold')
-call crimson-night#highlight('ClapMatches5', s:palette.blue, s:palette.none, 'bold')
-call crimson-night#highlight('ClapMatches6', s:palette.purple, s:palette.none, 'bold')
-call crimson-night#highlight('ClapFuzzyMatches', s:palette.green, s:palette.none, 'bold')
-call crimson-night#highlight('ClapNoMatchesFound', s:palette.red, s:palette.none, 'bold')
+call crimsonnight#highlight('ClapSelected', s:palette.red, s:palette.none, 'bold')
+call crimsonnight#highlight('ClapCurrentSelection', s:palette.none, s:palette.bg1, 'bold')
+call crimsonnight#highlight('ClapSpinner', s:palette.orange, s:palette.bg2, 'bold')
+call crimsonnight#highlight('ClapBlines', s:palette.fg, s:palette.none)
+call crimsonnight#highlight('ClapProviderId', s:palette.fg, s:palette.none, 'bold')
+call crimsonnight#highlight('ClapMatches1', s:palette.red, s:palette.none, 'bold')
+call crimsonnight#highlight('ClapMatches2', s:palette.orange, s:palette.none, 'bold')
+call crimsonnight#highlight('ClapMatches3', s:palette.yellow, s:palette.none, 'bold')
+call crimsonnight#highlight('ClapMatches4', s:palette.aqua, s:palette.none, 'bold')
+call crimsonnight#highlight('ClapMatches5', s:palette.blue, s:palette.none, 'bold')
+call crimsonnight#highlight('ClapMatches6', s:palette.purple, s:palette.none, 'bold')
+call crimsonnight#highlight('ClapFuzzyMatches', s:palette.green, s:palette.none, 'bold')
+call crimsonnight#highlight('ClapNoMatchesFound', s:palette.red, s:palette.none, 'bold')
 highlight! link ClapInput Pmenu
 highlight! link ClapDisplay Pmenu
 highlight! link ClapPreview Pmenu
@@ -996,20 +996,20 @@ let g:fzf_colors = {
       \ }
 " }}}
 " Shougo/denite.nvim {{{
-call crimson-night#highlight('deniteMatchedChar', s:palette.green, s:palette.none, 'bold')
-call crimson-night#highlight('deniteMatchedRange', s:palette.green, s:palette.none, 'bold,underline')
-call crimson-night#highlight('deniteInput', s:palette.green, s:palette.bg3, 'bold')
-call crimson-night#highlight('deniteStatusLineNumber', s:palette.purple, s:palette.bg3)
-call crimson-night#highlight('deniteStatusLinePath', s:palette.fg, s:palette.bg3)
+call crimsonnight#highlight('deniteMatchedChar', s:palette.green, s:palette.none, 'bold')
+call crimsonnight#highlight('deniteMatchedRange', s:palette.green, s:palette.none, 'bold,underline')
+call crimsonnight#highlight('deniteInput', s:palette.green, s:palette.bg3, 'bold')
+call crimsonnight#highlight('deniteStatusLineNumber', s:palette.purple, s:palette.bg3)
+call crimsonnight#highlight('deniteStatusLinePath', s:palette.fg, s:palette.bg3)
 highlight! link deniteSelectedLin Green
 " }}}
 " kien/ctrlp.vim {{{
-call crimson-night#highlight('CtrlPMatch', s:palette.green, s:palette.none, 'bold')
-call crimson-night#highlight('CtrlPPrtBase', s:palette.bg3, s:palette.none)
-call crimson-night#highlight('CtrlPLinePre', s:palette.bg3, s:palette.none)
-call crimson-night#highlight('CtrlPMode1', s:palette.blue, s:palette.bg3, 'bold')
-call crimson-night#highlight('CtrlPMode2', s:palette.bg0, s:palette.blue, 'bold')
-call crimson-night#highlight('CtrlPStats', s:palette.grey1, s:palette.bg3, 'bold')
+call crimsonnight#highlight('CtrlPMatch', s:palette.green, s:palette.none, 'bold')
+call crimsonnight#highlight('CtrlPPrtBase', s:palette.bg3, s:palette.none)
+call crimsonnight#highlight('CtrlPLinePre', s:palette.bg3, s:palette.none)
+call crimsonnight#highlight('CtrlPMode1', s:palette.blue, s:palette.bg3, 'bold')
+call crimsonnight#highlight('CtrlPMode2', s:palette.bg0, s:palette.blue, 'bold')
+call crimsonnight#highlight('CtrlPStats', s:palette.grey1, s:palette.bg3, 'bold')
 highlight! link CtrlPNoEntries Red
 highlight! link CtrlPPrtCursor Blue
 " }}}
@@ -1038,16 +1038,16 @@ highlight! link SignifyLineChangeDelete DiffChange
 highlight! link SignifyLineDelete DiffDelete
 " }}}
 " andymass/vim-matchup {{{
-call crimson-night#highlight('MatchParenCur', s:palette.none, s:palette.none, 'bold')
-call crimson-night#highlight('MatchWord', s:palette.none, s:palette.none, 'underline')
-call crimson-night#highlight('MatchWordCur', s:palette.none, s:palette.none, 'underline')
+call crimsonnight#highlight('MatchParenCur', s:palette.none, s:palette.none, 'bold')
+call crimsonnight#highlight('MatchWord', s:palette.none, s:palette.none, 'underline')
+call crimsonnight#highlight('MatchWordCur', s:palette.none, s:palette.none, 'underline')
 " }}}
 " easymotion/vim-easymotion {{{
 highlight! link EasyMotionTarget Search
 highlight! link EasyMotionShade Grey
 " }}}
 " justinmk/vim-sneak {{{
-call crimson-night#highlight('SneakLabelMask', s:palette.orange, s:palette.orange)
+call crimsonnight#highlight('SneakLabelMask', s:palette.orange, s:palette.orange)
 highlight! link Sneak Search
 highlight! link SneakLabel Search
 highlight! link SneakScope DiffText
@@ -1060,7 +1060,7 @@ highlight! link multiple_cursors_cursor Cursor
 highlight! link multiple_cursors_visual Visual
 " }}}
 " mg979/vim-visual-multi {{{
-call crimson-night#highlight('VMCursor', s:palette.blue, s:palette.bg_blue)
+call crimsonnight#highlight('VMCursor', s:palette.blue, s:palette.bg_blue)
 let g:VM_Mono_hl = 'VMCursor'
 let g:VM_Extend_hl = 'Visual'
 let g:VM_Cursor_hl = 'VMCursor'
@@ -1090,8 +1090,8 @@ endif
 " }}}
 " nathanaelkane/vim-indent-guides {{{
 if get(g:, 'indent_guides_auto_colors', 1) == 0
-  call crimson-night#highlight('IndentGuidesOdd', s:palette.bg0, s:palette.bg1)
-  call crimson-night#highlight('IndentGuidesEven', s:palette.bg0, s:palette.bg2)
+  call crimsonnight#highlight('IndentGuidesOdd', s:palette.bg0, s:palette.bg1)
+  call crimsonnight#highlight('IndentGuidesEven', s:palette.bg0, s:palette.bg2)
 endif
 " }}}
 " thiagoalessio/rainbow_levels.vim {{{
@@ -1148,8 +1148,8 @@ let g:limelight_conceal_ctermfg = s:palette.grey0[1]
 let g:limelight_conceal_guifg = s:palette.grey0[0]
 " }}}
 " unblevable/quick-scope {{{
-call crimson-night#highlight('QuickScopePrimary', s:palette.aqua, s:palette.none, 'underline')
-call crimson-night#highlight('QuickScopeSecondary', s:palette.blue, s:palette.none, 'underline')
+call crimsonnight#highlight('QuickScopePrimary', s:palette.aqua, s:palette.none, 'underline')
+call crimsonnight#highlight('QuickScopeSecondary', s:palette.blue, s:palette.none, 'underline')
 " }}}
 " APZelos/blamer.nvim {{{
 highlight! link Blamer Grey
@@ -1180,20 +1180,20 @@ highlight! link BookmarkAnnotationLine DiffAdd
 " }}}
 if has('nvim')
 " hrsh7th/nvim-cmp {{{
-call crimson-night#highlight('CmpItemAbbrMatch', s:palette.green, s:palette.none, 'bold')
-call crimson-night#highlight('CmpItemAbbrMatchFuzzy', s:palette.green, s:palette.none, 'bold')
+call crimsonnight#highlight('CmpItemAbbrMatch', s:palette.green, s:palette.none, 'bold')
+call crimsonnight#highlight('CmpItemAbbrMatchFuzzy', s:palette.green, s:palette.none, 'bold')
 highlight! link CmpItemAbbr Fg
 highlight! link CmpItemAbbrDeprecated Grey
 highlight! link CmpItemMenu Fg
 highlight! link CmpItemKind Yellow
-for kind in g:crimson-night_lsp_kind_color
+for kind in g:crimsonnight_lsp_kind_color
   execute "highlight! link CmpItemKind" . kind[0] . " " . kind[1]
 endfor
 " }}}
 " SmiteshP/nvim-navic {{{
 highlight! link NavicText Fg
 highlight! link NavicSeparator Grey
-for kind in g:crimson-night_lsp_kind_color
+for kind in g:crimsonnight_lsp_kind_color
   execute "highlight! link NavicIcons" . kind[0] . " " . kind[1]
 endfor
 " }}}
@@ -1203,7 +1203,7 @@ highlight! link TroubleSource Grey
 highlight! link TroubleCode Grey
 " }}}
 " nvim-telescope/telescope.nvim {{{
-call crimson-night#highlight('TelescopeMatching', s:palette.green, s:palette.none, 'bold')
+call crimsonnight#highlight('TelescopeMatching', s:palette.green, s:palette.none, 'bold')
 highlight! link TelescopeBorder Grey
 highlight! link TelescopePromptPrefix Orange
 highlight! link TelescopeSelection DiffAdd
@@ -1221,15 +1221,15 @@ highlight! link GitSignsDeleteLn DiffDelete
 highlight! link GitSignsCurrentLineBlame Grey
 " }}}
 " phaazon/hop.nvim {{{
-call crimson-night#highlight('HopNextKey', s:palette.orange, s:palette.none, 'bold')
-call crimson-night#highlight('HopNextKey1', s:palette.green, s:palette.none, 'bold')
+call crimsonnight#highlight('HopNextKey', s:palette.orange, s:palette.none, 'bold')
+call crimsonnight#highlight('HopNextKey1', s:palette.green, s:palette.none, 'bold')
 highlight! link HopNextKey2 Green
 highlight! link HopUnmatched Grey
 " }}}
 " lukas-reineke/indent-blankline.nvim {{{
-call crimson-night#highlight('IblScope', s:palette.grey1, s:palette.none, 'nocombine')
-call crimson-night#highlight('IblIndent', s:palette.bg4, s:palette.none, 'nocombine')
-call crimson-night#highlight('IndentBlanklineContextStart', s:palette.none, s:palette.bg2)
+call crimsonnight#highlight('IblScope', s:palette.grey1, s:palette.none, 'nocombine')
+call crimsonnight#highlight('IblIndent', s:palette.bg4, s:palette.none, 'nocombine')
+call crimsonnight#highlight('IndentBlanklineContextStart', s:palette.none, s:palette.bg2)
 highlight! link IndentBlanklineContextChar IblScope
 highlight! link IndentBlanklineChar IblIndent
 highlight! link IndentBlanklineSpaceChar IndentBlanklineChar
@@ -1245,26 +1245,26 @@ highlight! link rainbowcol6 Blue
 highlight! link rainbowcol7 Purple
 " }}}
 " romgrk/barbar.nvim {{{
-call crimson-night#highlight('BufferCurrent', s:palette.fg, s:palette.bg0)
-call crimson-night#highlight('BufferCurrentIndex', s:palette.fg, s:palette.bg0)
-call crimson-night#highlight('BufferCurrentMod', s:palette.blue, s:palette.bg0)
-call crimson-night#highlight('BufferCurrentSign', s:palette.statusline1, s:palette.bg0)
-call crimson-night#highlight('BufferCurrentTarget', s:palette.red, s:palette.bg0, 'bold')
-call crimson-night#highlight('BufferVisible', s:palette.fg, s:palette.bg_dim)
-call crimson-night#highlight('BufferVisibleIndex', s:palette.fg, s:palette.bg_dim)
-call crimson-night#highlight('BufferVisibleMod', s:palette.blue, s:palette.bg_dim)
-call crimson-night#highlight('BufferVisibleSign', s:palette.statusline1, s:palette.bg_dim)
-call crimson-night#highlight('BufferVisibleTarget', s:palette.yellow, s:palette.bg_dim, 'bold')
-call crimson-night#highlight('BufferInactive', s:palette.grey1, s:palette.bg_dim)
-call crimson-night#highlight('BufferInactiveIndex', s:palette.grey1, s:palette.bg_dim)
-call crimson-night#highlight('BufferInactiveMod', s:palette.grey1, s:palette.bg_dim)
-call crimson-night#highlight('BufferInactiveSign', s:palette.grey0, s:palette.bg_dim)
-call crimson-night#highlight('BufferInactiveTarget', s:palette.yellow, s:palette.bg_dim, 'bold')
-call crimson-night#highlight('BufferTabpages', s:palette.grey1, s:palette.bg_dim, 'bold')
-call crimson-night#highlight('BufferTabpageFill', s:palette.bg_dim, s:palette.bg_dim)
+call crimsonnight#highlight('BufferCurrent', s:palette.fg, s:palette.bg0)
+call crimsonnight#highlight('BufferCurrentIndex', s:palette.fg, s:palette.bg0)
+call crimsonnight#highlight('BufferCurrentMod', s:palette.blue, s:palette.bg0)
+call crimsonnight#highlight('BufferCurrentSign', s:palette.statusline1, s:palette.bg0)
+call crimsonnight#highlight('BufferCurrentTarget', s:palette.red, s:palette.bg0, 'bold')
+call crimsonnight#highlight('BufferVisible', s:palette.fg, s:palette.bg_dim)
+call crimsonnight#highlight('BufferVisibleIndex', s:palette.fg, s:palette.bg_dim)
+call crimsonnight#highlight('BufferVisibleMod', s:palette.blue, s:palette.bg_dim)
+call crimsonnight#highlight('BufferVisibleSign', s:palette.statusline1, s:palette.bg_dim)
+call crimsonnight#highlight('BufferVisibleTarget', s:palette.yellow, s:palette.bg_dim, 'bold')
+call crimsonnight#highlight('BufferInactive', s:palette.grey1, s:palette.bg_dim)
+call crimsonnight#highlight('BufferInactiveIndex', s:palette.grey1, s:palette.bg_dim)
+call crimsonnight#highlight('BufferInactiveMod', s:palette.grey1, s:palette.bg_dim)
+call crimsonnight#highlight('BufferInactiveSign', s:palette.grey0, s:palette.bg_dim)
+call crimsonnight#highlight('BufferInactiveTarget', s:palette.yellow, s:palette.bg_dim, 'bold')
+call crimsonnight#highlight('BufferTabpages', s:palette.grey1, s:palette.bg_dim, 'bold')
+call crimsonnight#highlight('BufferTabpageFill', s:palette.bg_dim, s:palette.bg_dim)
 " }}}
 " rcarriga/nvim-notify {{{
-call crimson-night#highlight('NotifyBackground', s:palette.none, s:palette.bg0)
+call crimsonnight#highlight('NotifyBackground', s:palette.none, s:palette.bg0)
 highlight! link NotifyERRORBorder Red
 highlight! link NotifyWARNBorder Yellow
 highlight! link NotifyINFOBorder Green
@@ -1282,16 +1282,16 @@ highlight! link NotifyDEBUGTitle Grey
 highlight! link NotifyTRACETitle Purple
 " }}}
 " rcarriga/nvim-dap-ui {{{
-call crimson-night#highlight('DapUIModifiedValue', s:palette.blue, s:palette.none, 'bold')
-call crimson-night#highlight('DapUIBreakpointsCurrentLine', s:palette.blue, s:palette.none, 'bold')
-call crimson-night#highlight('DapUIPlayPause', s:palette.green, s:palette.bg2)
-call crimson-night#highlight('DapUIRestart', s:palette.green, s:palette.bg2)
-call crimson-night#highlight('DapUIStop', s:palette.red, s:palette.bg2)
-call crimson-night#highlight('DapUIUnavailable', s:palette.grey1, s:palette.bg2)
-call crimson-night#highlight('DapUIStepOver', s:palette.blue, s:palette.bg2)
-call crimson-night#highlight('DapUIStepInto', s:palette.blue, s:palette.bg2)
-call crimson-night#highlight('DapUIStepBack', s:palette.blue, s:palette.bg2)
-call crimson-night#highlight('DapUIStepOut', s:palette.blue, s:palette.bg2)
+call crimsonnight#highlight('DapUIModifiedValue', s:palette.blue, s:palette.none, 'bold')
+call crimsonnight#highlight('DapUIBreakpointsCurrentLine', s:palette.blue, s:palette.none, 'bold')
+call crimsonnight#highlight('DapUIPlayPause', s:palette.green, s:palette.bg2)
+call crimsonnight#highlight('DapUIRestart', s:palette.green, s:palette.bg2)
+call crimsonnight#highlight('DapUIStop', s:palette.red, s:palette.bg2)
+call crimsonnight#highlight('DapUIUnavailable', s:palette.grey1, s:palette.bg2)
+call crimsonnight#highlight('DapUIStepOver', s:palette.blue, s:palette.bg2)
+call crimsonnight#highlight('DapUIStepInto', s:palette.blue, s:palette.bg2)
+call crimsonnight#highlight('DapUIStepBack', s:palette.blue, s:palette.bg2)
+call crimsonnight#highlight('DapUIStepOut', s:palette.blue, s:palette.bg2)
 highlight! link DapUIScope Blue
 highlight! link DapUIType Purple
 highlight! link DapUIDecoration Blue
@@ -1307,10 +1307,10 @@ highlight! link DapUIBreakpointsPath Blue
 highlight! link DapUIBreakpointsInfo Green
 " }}}
 " glepnir/lspsaga.nvim {{{
-call crimson-night#highlight('LspFloatWinBorder', s:palette.bg0, s:palette.bg0)
-call crimson-night#highlight('LspSagaDiagnosticHeader', s:palette.orange, s:palette.none, 'bold')
-call crimson-night#highlight('LspSagaCodeActionTitle', s:palette.purple, s:palette.none, 'bold')
-call crimson-night#highlight('DefinitionPreviewTitle', s:palette.blue, s:palette.none, 'bold')
+call crimsonnight#highlight('LspFloatWinBorder', s:palette.bg0, s:palette.bg0)
+call crimsonnight#highlight('LspSagaDiagnosticHeader', s:palette.orange, s:palette.none, 'bold')
+call crimsonnight#highlight('LspSagaCodeActionTitle', s:palette.purple, s:palette.none, 'bold')
+call crimsonnight#highlight('DefinitionPreviewTitle', s:palette.blue, s:palette.none, 'bold')
 highlight! link LspSagaDiagnosticError Red
 highlight! link LspSagaDiagnosticWarn Yellow
 highlight! link LspSagaDiagnosticInfo Blue
@@ -1343,58 +1343,58 @@ highlight! link DefinitionCount Grey
 highlight! link TargetFileName Grey
 " }}}
 " b0o/incline.nvim {{{
-call crimson-night#highlight('InclineNormalNC', s:palette.grey1, s:palette.bg2)
+call crimsonnight#highlight('InclineNormalNC', s:palette.grey1, s:palette.bg2)
 " }}}
 " echasnovski/mini.nvim {{{
-call crimson-night#highlight('MiniAnimateCursor', s:palette.none, s:palette.none, 'reverse,nocombine')
-call crimson-night#highlight('MiniFilesFile', s:palette.fg, s:palette.none)
+call crimsonnight#highlight('MiniAnimateCursor', s:palette.none, s:palette.none, 'reverse,nocombine')
+call crimsonnight#highlight('MiniFilesFile', s:palette.fg, s:palette.none)
 if s:configuration.float_style ==# 'dim'
-  call crimson-night#highlight('MiniFilesTitleFocused', s:palette.green, s:palette.bg_dim, 'bold')
+  call crimsonnight#highlight('MiniFilesTitleFocused', s:palette.green, s:palette.bg_dim, 'bold')
 else
-  call crimson-night#highlight('MiniFilesTitleFocused', s:palette.green, s:palette.bg2, 'bold')
+  call crimsonnight#highlight('MiniFilesTitleFocused', s:palette.green, s:palette.bg2, 'bold')
 endif
-call crimson-night#highlight('MiniHipatternsFixme', s:palette.bg0, s:palette.red, 'bold')
-call crimson-night#highlight('MiniHipatternsHack', s:palette.bg0, s:palette.yellow, 'bold')
-call crimson-night#highlight('MiniHipatternsNote', s:palette.bg0, s:palette.blue, 'bold')
-call crimson-night#highlight('MiniHipatternsTodo', s:palette.bg0, s:palette.green, 'bold')
-call crimson-night#highlight('MiniIconsAzure', s:palette.blue, s:palette.none)
-call crimson-night#highlight('MiniIconsBlue', s:palette.blue, s:palette.none)
-call crimson-night#highlight('MiniIconsCyan', s:palette.aqua, s:palette.none)
-call crimson-night#highlight('MiniIconsGreen', s:palette.green, s:palette.none)
-call crimson-night#highlight('MiniIconsGrey', s:palette.grey2, s:palette.none)
-call crimson-night#highlight('MiniIconsOrange', s:palette.orange, s:palette.none)
-call crimson-night#highlight('MiniIconsPurple', s:palette.purple, s:palette.none)
-call crimson-night#highlight('MiniIconsRed', s:palette.red, s:palette.none)
-call crimson-night#highlight('MiniIconsYellow', s:palette.yellow, s:palette.none)
-call crimson-night#highlight('MiniIndentscopePrefix', s:palette.none, s:palette.none, 'nocombine')
-call crimson-night#highlight('MiniJump2dSpot', s:palette.orange, s:palette.none, 'bold,nocombine')
-call crimson-night#highlight('MiniJump2dSpotAhead', s:palette.aqua, s:palette.none, 'nocombine')
-call crimson-night#highlight('MiniJump2dSpotUnique', s:palette.yellow, s:palette.none, 'bold,nocombine')
+call crimsonnight#highlight('MiniHipatternsFixme', s:palette.bg0, s:palette.red, 'bold')
+call crimsonnight#highlight('MiniHipatternsHack', s:palette.bg0, s:palette.yellow, 'bold')
+call crimsonnight#highlight('MiniHipatternsNote', s:palette.bg0, s:palette.blue, 'bold')
+call crimsonnight#highlight('MiniHipatternsTodo', s:palette.bg0, s:palette.green, 'bold')
+call crimsonnight#highlight('MiniIconsAzure', s:palette.blue, s:palette.none)
+call crimsonnight#highlight('MiniIconsBlue', s:palette.blue, s:palette.none)
+call crimsonnight#highlight('MiniIconsCyan', s:palette.aqua, s:palette.none)
+call crimsonnight#highlight('MiniIconsGreen', s:palette.green, s:palette.none)
+call crimsonnight#highlight('MiniIconsGrey', s:palette.grey2, s:palette.none)
+call crimsonnight#highlight('MiniIconsOrange', s:palette.orange, s:palette.none)
+call crimsonnight#highlight('MiniIconsPurple', s:palette.purple, s:palette.none)
+call crimsonnight#highlight('MiniIconsRed', s:palette.red, s:palette.none)
+call crimsonnight#highlight('MiniIconsYellow', s:palette.yellow, s:palette.none)
+call crimsonnight#highlight('MiniIndentscopePrefix', s:palette.none, s:palette.none, 'nocombine')
+call crimsonnight#highlight('MiniJump2dSpot', s:palette.orange, s:palette.none, 'bold,nocombine')
+call crimsonnight#highlight('MiniJump2dSpotAhead', s:palette.aqua, s:palette.none, 'nocombine')
+call crimsonnight#highlight('MiniJump2dSpotUnique', s:palette.yellow, s:palette.none, 'bold,nocombine')
 if s:configuration.float_style ==# 'dim'
-  call crimson-night#highlight('MiniPickPrompt', s:palette.blue, s:palette.bg_dim)
+  call crimsonnight#highlight('MiniPickPrompt', s:palette.blue, s:palette.bg_dim)
 else
-  call crimson-night#highlight('MiniPickPrompt', s:palette.blue, s:palette.bg2)
+  call crimsonnight#highlight('MiniPickPrompt', s:palette.blue, s:palette.bg2)
 endif
-call crimson-night#highlight('MiniStarterCurrent', s:palette.none, s:palette.none, 'nocombine')
-call crimson-night#highlight('MiniStatuslineDevinfo', s:palette.grey2, s:palette.bg3)
-call crimson-night#highlight('MiniStatuslineFilename', s:palette.grey1, s:palette.bg1)
-call crimson-night#highlight('MiniStatuslineModeCommand', s:palette.bg0, s:palette.aqua, 'bold')
-call crimson-night#highlight('MiniStatuslineModeInsert', s:palette.bg0, s:palette.statusline2, 'bold')
-call crimson-night#highlight('MiniStatuslineModeNormal', s:palette.bg0, s:palette.statusline1, 'bold')
-call crimson-night#highlight('MiniStatuslineModeOther', s:palette.bg0, s:palette.purple, 'bold')
-call crimson-night#highlight('MiniStatuslineModeReplace', s:palette.bg0, s:palette.orange, 'bold')
-call crimson-night#highlight('MiniStatuslineModeVisual', s:palette.bg0, s:palette.statusline3, 'bold')
-call crimson-night#highlight('MiniTablineCurrent', s:palette.fg, s:palette.bg4)
-call crimson-night#highlight('MiniTablineHidden', s:palette.grey1, s:palette.bg2)
-call crimson-night#highlight('MiniTablineModifiedCurrent', s:palette.blue, s:palette.bg4)
-call crimson-night#highlight('MiniTablineModifiedHidden', s:palette.grey1, s:palette.bg2)
-call crimson-night#highlight('MiniTablineModifiedVisible', s:palette.blue, s:palette.bg2)
-call crimson-night#highlight('MiniTablineTabpagesection', s:palette.bg0, s:palette.statusline1, 'bold')
-call crimson-night#highlight('MiniTablineVisible', s:palette.fg, s:palette.bg2)
-call crimson-night#highlight('MiniTestEmphasis', s:palette.none, s:palette.none, 'bold')
-call crimson-night#highlight('MiniTestFail', s:palette.red, s:palette.none, 'bold')
-call crimson-night#highlight('MiniTestPass', s:palette.green, s:palette.none, 'bold')
-call crimson-night#highlight('MiniTrailspace', s:palette.none, s:palette.red)
+call crimsonnight#highlight('MiniStarterCurrent', s:palette.none, s:palette.none, 'nocombine')
+call crimsonnight#highlight('MiniStatuslineDevinfo', s:palette.grey2, s:palette.bg3)
+call crimsonnight#highlight('MiniStatuslineFilename', s:palette.grey1, s:palette.bg1)
+call crimsonnight#highlight('MiniStatuslineModeCommand', s:palette.bg0, s:palette.aqua, 'bold')
+call crimsonnight#highlight('MiniStatuslineModeInsert', s:palette.bg0, s:palette.statusline2, 'bold')
+call crimsonnight#highlight('MiniStatuslineModeNormal', s:palette.bg0, s:palette.statusline1, 'bold')
+call crimsonnight#highlight('MiniStatuslineModeOther', s:palette.bg0, s:palette.purple, 'bold')
+call crimsonnight#highlight('MiniStatuslineModeReplace', s:palette.bg0, s:palette.orange, 'bold')
+call crimsonnight#highlight('MiniStatuslineModeVisual', s:palette.bg0, s:palette.statusline3, 'bold')
+call crimsonnight#highlight('MiniTablineCurrent', s:palette.fg, s:palette.bg4)
+call crimsonnight#highlight('MiniTablineHidden', s:palette.grey1, s:palette.bg2)
+call crimsonnight#highlight('MiniTablineModifiedCurrent', s:palette.blue, s:palette.bg4)
+call crimsonnight#highlight('MiniTablineModifiedHidden', s:palette.grey1, s:palette.bg2)
+call crimsonnight#highlight('MiniTablineModifiedVisible', s:palette.blue, s:palette.bg2)
+call crimsonnight#highlight('MiniTablineTabpagesection', s:palette.bg0, s:palette.statusline1, 'bold')
+call crimsonnight#highlight('MiniTablineVisible', s:palette.fg, s:palette.bg2)
+call crimsonnight#highlight('MiniTestEmphasis', s:palette.none, s:palette.none, 'bold')
+call crimsonnight#highlight('MiniTestFail', s:palette.red, s:palette.none, 'bold')
+call crimsonnight#highlight('MiniTestPass', s:palette.green, s:palette.none, 'bold')
+call crimsonnight#highlight('MiniTrailspace', s:palette.none, s:palette.red)
 highlight! link MiniAnimateNormalFloat NormalFloat
 highlight! link MiniClueBorder FloatBorder
 highlight! link MiniClueDescGroup DiagnosticFloatingWarn
@@ -1466,11 +1466,11 @@ highlight! link MiniSurround IncSearch
 highlight! link MiniTablineFill TabLineFill
 " }}}
 " ggandor/lightspeed.nvim {{{
-call crimson-night#highlight('LightspeedLabel', s:palette.red, s:palette.none, 'bold,underline')
-call crimson-night#highlight('LightspeedLabelDistant', s:palette.blue, s:palette.none, 'bold,underline')
-call crimson-night#highlight('LightspeedShortcut', s:palette.bg0, s:palette.red, 'bold')
-call crimson-night#highlight('LightspeedUnlabeledMatch', s:palette.fg, s:palette.none, 'bold')
-call crimson-night#highlight('LightspeedPendingOpArea', s:palette.bg0, s:palette.green)
+call crimsonnight#highlight('LightspeedLabel', s:palette.red, s:palette.none, 'bold,underline')
+call crimsonnight#highlight('LightspeedLabelDistant', s:palette.blue, s:palette.none, 'bold,underline')
+call crimsonnight#highlight('LightspeedShortcut', s:palette.bg0, s:palette.red, 'bold')
+call crimsonnight#highlight('LightspeedUnlabeledMatch', s:palette.fg, s:palette.none, 'bold')
+call crimsonnight#highlight('LightspeedPendingOpArea', s:palette.bg0, s:palette.green)
 highlight! link LightspeedMaskedChar Purple
 highlight! link LightspeedGreyWash Grey
 " }}}
@@ -1496,27 +1496,27 @@ highlight! link diffIndexLine Purple
 " }}}
 " }}}
 " Generate the `after/syntax` directory based on the comment tags in this file.
-" For example, the content between `syn_begin: sh/zsh` and `syn_end` will be placed in `after/syntax/sh/crimson-night.vim` and `after/syntax/zsh/crimson-night.vim`.
-if crimson-night#syn_exists(s:path) " If the syntax files exist.
+" For example, the content between `syn_begin: sh/zsh` and `syn_end` will be placed in `after/syntax/sh/crimsonnight.vim` and `after/syntax/zsh/crimsonnight.vim`.
+if crimsonnight#syn_exists(s:path) " If the syntax files exist.
   if s:configuration.better_performance
-    if !crimson-night#syn_newest(s:path, s:last_modified) " Regenerate if it's not up to date.
-      call crimson-night#syn_clean(s:path, 0)
-      call crimson-night#syn_gen(s:path, s:last_modified, 'update')
+    if !crimsonnight#syn_newest(s:path, s:last_modified) " Regenerate if it's not up to date.
+      call crimsonnight#syn_clean(s:path, 0)
+      call crimsonnight#syn_gen(s:path, s:last_modified, 'update')
     endif
     finish
   else
-    call crimson-night#syn_clean(s:path, 1)
+    call crimsonnight#syn_clean(s:path, 1)
   endif
 else
   if s:configuration.better_performance
-    call crimson-night#syn_gen(s:path, s:last_modified, 'generate')
+    call crimsonnight#syn_gen(s:path, s:last_modified, 'generate')
     finish
   endif
 endif
 " syn_begin: vim-plug {{{
 " https://github.com/junegunn/vim-plug
-call crimson-night#highlight('plug1', s:palette.orange, s:palette.none, 'bold')
-call crimson-night#highlight('plugNumber', s:palette.yellow, s:palette.none, 'bold')
+call crimsonnight#highlight('plug1', s:palette.orange, s:palette.none, 'bold')
+call crimsonnight#highlight('plugNumber', s:palette.yellow, s:palette.none, 'bold')
 highlight! link plug2 Green
 highlight! link plugBracket Grey
 highlight! link plugName Aqua
@@ -1554,7 +1554,7 @@ highlight! link packerTimeLow Green
 " https://github.com/neoclide/coc.nvim
 highlight! link CocTreeOpenClose Aqua
 highlight! link CocTreeDescription Grey
-for kind in g:crimson-night_lsp_kind_color
+for kind in g:crimsonnight_lsp_kind_color
   execute "highlight! link CocSymbol" . kind[0] . " " . kind[1]
 endfor
 " syn_end }}}
@@ -1633,7 +1633,7 @@ highlight! link FocusedSymbol NormalFloat
 " https://github.com/stevearc/aerial.nvim
 highlight! link AerialLine CursorLine
 highlight! link AerialGuide LineNr
-for kind in g:crimson-night_lsp_kind_color
+for kind in g:crimsonnight_lsp_kind_color
   execute "highlight! link Aerial" . kind[0] . "Icon " . kind[1]
 endfor
 " syn_end }}}
@@ -1662,10 +1662,10 @@ highlight! link DirvishArg Yellow
 " syn_begin: NvimTree {{{
 " https://github.com/kyazdani42/nvim-tree.lua
 if !s:configuration.transparent_background
-  call crimson-night#highlight('NvimTreeNormal', s:palette.fg, s:palette.bg_dim)
-  call crimson-night#highlight('NvimTreeEndOfBuffer', s:palette.bg_dim, s:palette.bg_dim)
-  call crimson-night#highlight('NvimTreeVertSplit', s:palette.bg0, s:palette.bg0)
-  call crimson-night#highlight('NvimTreeCursorLine', s:palette.none, s:palette.bg0)
+  call crimsonnight#highlight('NvimTreeNormal', s:palette.fg, s:palette.bg_dim)
+  call crimsonnight#highlight('NvimTreeEndOfBuffer', s:palette.bg_dim, s:palette.bg_dim)
+  call crimsonnight#highlight('NvimTreeVertSplit', s:palette.bg0, s:palette.bg0)
+  call crimsonnight#highlight('NvimTreeCursorLine', s:palette.none, s:palette.bg0)
 endif
 highlight! link NvimTreeSymlink Fg
 highlight! link NvimTreeFolderName Green
@@ -1706,9 +1706,9 @@ highlight! link FernWindowSelectStatusLine TabLine
 " syn_begin: neo-tree {{{
 " https://github.com/nvim-neo-tree/neo-tree.nvim
 if !s:configuration.transparent_background
-  call crimson-night#highlight('NeoTreeNormal', s:palette.fg, s:palette.bg_dim)
-  call crimson-night#highlight('NeoTreeEndOfBuffer', s:palette.bg_dim, s:palette.bg_dim)
-  call crimson-night#highlight('NeoTreeVertSplit', s:palette.bg0, s:palette.bg0)
+  call crimsonnight#highlight('NeoTreeNormal', s:palette.fg, s:palette.bg_dim)
+  call crimsonnight#highlight('NeoTreeEndOfBuffer', s:palette.bg_dim, s:palette.bg_dim)
+  call crimsonnight#highlight('NeoTreeVertSplit', s:palette.bg0, s:palette.bg0)
 endif
 highlight! link NeoTreeDirectoryIcon Orange
 highlight! link NeoTreeGitAdded Green
@@ -1725,24 +1725,24 @@ highlight! link NeoTreeNormalNC NeoTreeNormal
 highlight! link NeoTreeSignColumn NeoTreeNormal
 highlight! link NeoTreeRootName Title
 if &background ==# 'light'
-  call crimson-night#highlight('NeoTreeCursorLine', s:palette.none, s:palette.bg0)
+  call crimsonnight#highlight('NeoTreeCursorLine', s:palette.none, s:palette.bg0)
 endif
 " syn_end }}}
 " syn_begin: octo {{{
 " https://github.com/pwntester/octo.nvim
-call crimson-night#highlight('OctoViewer', s:palette.bg0, s:palette.blue)
-call crimson-night#highlight('OctoGreenFloat', s:palette.green, s:palette.bg2)
-call crimson-night#highlight('OctoRedFloat', s:palette.red, s:palette.bg2)
-call crimson-night#highlight('OctoPurpleFloat', s:palette.purple, s:palette.bg2)
-call crimson-night#highlight('OctoYellowFloat', s:palette.yellow, s:palette.bg2)
-call crimson-night#highlight('OctoBlueFloat', s:palette.blue, s:palette.bg2)
-call crimson-night#highlight('OctoGreyFloat', s:palette.grey1, s:palette.bg2)
-call crimson-night#highlight('OctoBubbleGreen', s:palette.bg0, s:palette.green)
-call crimson-night#highlight('OctoBubbleRed', s:palette.bg0, s:palette.red)
-call crimson-night#highlight('OctoBubblePurple', s:palette.bg0, s:palette.purple)
-call crimson-night#highlight('OctoBubbleYellow', s:palette.bg0, s:palette.yellow)
-call crimson-night#highlight('OctoBubbleBlue', s:palette.bg0, s:palette.blue)
-call crimson-night#highlight('OctoBubbleGrey', s:palette.bg0, s:palette.grey1)
+call crimsonnight#highlight('OctoViewer', s:palette.bg0, s:palette.blue)
+call crimsonnight#highlight('OctoGreenFloat', s:palette.green, s:palette.bg2)
+call crimsonnight#highlight('OctoRedFloat', s:palette.red, s:palette.bg2)
+call crimsonnight#highlight('OctoPurpleFloat', s:palette.purple, s:palette.bg2)
+call crimsonnight#highlight('OctoYellowFloat', s:palette.yellow, s:palette.bg2)
+call crimsonnight#highlight('OctoBlueFloat', s:palette.blue, s:palette.bg2)
+call crimsonnight#highlight('OctoGreyFloat', s:palette.grey1, s:palette.bg2)
+call crimsonnight#highlight('OctoBubbleGreen', s:palette.bg0, s:palette.green)
+call crimsonnight#highlight('OctoBubbleRed', s:palette.bg0, s:palette.red)
+call crimsonnight#highlight('OctoBubblePurple', s:palette.bg0, s:palette.purple)
+call crimsonnight#highlight('OctoBubbleYellow', s:palette.bg0, s:palette.yellow)
+call crimsonnight#highlight('OctoBubbleBlue', s:palette.bg0, s:palette.blue)
+call crimsonnight#highlight('OctoBubbleGrey', s:palette.bg0, s:palette.grey1)
 highlight! link OctoGreen Green
 highlight! link OctoRed Red
 highlight! link OctoPurple Purple
@@ -1793,7 +1793,7 @@ highlight! link QuickmenuHeader Orange
 " syn_end }}}
 " syn_begin: undotree {{{
 " https://github.com/mbbill/undotree
-call crimson-night#highlight('UndotreeSavedBig', s:palette.purple, s:palette.none, 'bold')
+call crimsonnight#highlight('UndotreeSavedBig', s:palette.purple, s:palette.none, 'bold')
 highlight! link UndotreeNode Orange
 highlight! link UndotreeNodeCurrent Red
 highlight! link UndotreeSeq Green
@@ -1828,15 +1828,15 @@ highlight! link DashboardFooter Orange
 " syn_end }}}
 " syn_begin: markdown {{{
 " builtin: {{{
-call crimson-night#highlight('markdownH1', s:palette.red, s:palette.none, 'bold')
-call crimson-night#highlight('markdownH2', s:palette.orange, s:palette.none, 'bold')
-call crimson-night#highlight('markdownH3', s:palette.yellow, s:palette.none, 'bold')
-call crimson-night#highlight('markdownH4', s:palette.green, s:palette.none, 'bold')
-call crimson-night#highlight('markdownH5', s:palette.blue, s:palette.none, 'bold')
-call crimson-night#highlight('markdownH6', s:palette.purple, s:palette.none, 'bold')
-call crimson-night#highlight('markdownItalic', s:palette.none, s:palette.none, 'italic')
-call crimson-night#highlight('markdownBold', s:palette.none, s:palette.none, 'bold')
-call crimson-night#highlight('markdownItalicDelimiter', s:palette.grey1, s:palette.none, 'italic')
+call crimsonnight#highlight('markdownH1', s:palette.red, s:palette.none, 'bold')
+call crimsonnight#highlight('markdownH2', s:palette.orange, s:palette.none, 'bold')
+call crimsonnight#highlight('markdownH3', s:palette.yellow, s:palette.none, 'bold')
+call crimsonnight#highlight('markdownH4', s:palette.green, s:palette.none, 'bold')
+call crimsonnight#highlight('markdownH5', s:palette.blue, s:palette.none, 'bold')
+call crimsonnight#highlight('markdownH6', s:palette.purple, s:palette.none, 'bold')
+call crimsonnight#highlight('markdownItalic', s:palette.none, s:palette.none, 'italic')
+call crimsonnight#highlight('markdownBold', s:palette.none, s:palette.none, 'bold')
+call crimsonnight#highlight('markdownItalicDelimiter', s:palette.grey1, s:palette.none, 'italic')
 highlight! link markdownUrl TSURI
 highlight! link markdownCode Green
 highlight! link markdownCodeBlock Aqua
@@ -1857,9 +1857,9 @@ highlight! link markdownBoldDelimiter Grey
 highlight! link markdownId Yellow
 " }}}
 " vim-markdown: https://github.com/gabrielelana/vim-markdown {{{
-call crimson-night#highlight('mkdURL', s:palette.blue, s:palette.none, 'underline')
-call crimson-night#highlight('mkdInlineURL', s:palette.purple, s:palette.none, 'underline')
-call crimson-night#highlight('mkdItalic', s:palette.grey1, s:palette.none, 'italic')
+call crimsonnight#highlight('mkdURL', s:palette.blue, s:palette.none, 'underline')
+call crimsonnight#highlight('mkdInlineURL', s:palette.purple, s:palette.none, 'underline')
+call crimsonnight#highlight('mkdItalic', s:palette.grey1, s:palette.none, 'italic')
 highlight! link mkdCodeDelimiter Aqua
 highlight! link mkdBold Grey
 highlight! link mkdLink Purple
@@ -1884,23 +1884,23 @@ if has('nvim-0.8')
   highlight! link @markup.heading.5.marker.markdown @conceal
   highlight! link @markup.heading.6.marker.markdown @conceal
   if !has('nvim-0.10')
-    call crimson-night#highlight('@markup.italic', s:palette.none, s:palette.none, 'italic')
-    call crimson-night#highlight('@markup.strikethrough', s:palette.none, s:palette.none, 'strikethrough')
+    call crimsonnight#highlight('@markup.italic', s:palette.none, s:palette.none, 'italic')
+    call crimsonnight#highlight('@markup.strikethrough', s:palette.none, s:palette.none, 'strikethrough')
   endif
 endif
 " }}}
 " syn_end }}}
 " syn_begin: vimwiki {{{
-call crimson-night#highlight('VimwikiHeader1', s:palette.red, s:palette.none, 'bold')
-call crimson-night#highlight('VimwikiHeader2', s:palette.orange, s:palette.none, 'bold')
-call crimson-night#highlight('VimwikiHeader3', s:palette.yellow, s:palette.none, 'bold')
-call crimson-night#highlight('VimwikiHeader4', s:palette.green, s:palette.none, 'bold')
-call crimson-night#highlight('VimwikiHeader5', s:palette.blue, s:palette.none, 'bold')
-call crimson-night#highlight('VimwikiHeader6', s:palette.purple, s:palette.none, 'bold')
-call crimson-night#highlight('VimwikiLink', s:palette.blue, s:palette.none, 'underline')
-call crimson-night#highlight('VimwikiItalic', s:palette.none, s:palette.none, 'italic')
-call crimson-night#highlight('VimwikiBold', s:palette.none, s:palette.none, 'bold')
-call crimson-night#highlight('VimwikiUnderline', s:palette.none, s:palette.none, 'underline')
+call crimsonnight#highlight('VimwikiHeader1', s:palette.red, s:palette.none, 'bold')
+call crimsonnight#highlight('VimwikiHeader2', s:palette.orange, s:palette.none, 'bold')
+call crimsonnight#highlight('VimwikiHeader3', s:palette.yellow, s:palette.none, 'bold')
+call crimsonnight#highlight('VimwikiHeader4', s:palette.green, s:palette.none, 'bold')
+call crimsonnight#highlight('VimwikiHeader5', s:palette.blue, s:palette.none, 'bold')
+call crimsonnight#highlight('VimwikiHeader6', s:palette.purple, s:palette.none, 'bold')
+call crimsonnight#highlight('VimwikiLink', s:palette.blue, s:palette.none, 'underline')
+call crimsonnight#highlight('VimwikiItalic', s:palette.none, s:palette.none, 'italic')
+call crimsonnight#highlight('VimwikiBold', s:palette.none, s:palette.none, 'bold')
+call crimsonnight#highlight('VimwikiUnderline', s:palette.none, s:palette.none, 'underline')
 highlight! link VimwikiList Red
 highlight! link VimwikiTag Aqua
 highlight! link VimwikiCode Green
@@ -1913,7 +1913,7 @@ highlight! link VimwikiNoExistsLink Red
 " syn_end }}}
 " syn_begin: rst {{{
 " builtin: https://github.com/marshallward/vim-restructuredtext {{{
-call crimson-night#highlight('rstStandaloneHyperlink', s:palette.purple, s:palette.none, 'underline')
+call crimsonnight#highlight('rstStandaloneHyperlink', s:palette.purple, s:palette.none, 'underline')
 highlight! link rstSubstitutionReference Blue
 highlight! link rstInterpretedTextOrHyperlinkReference Aqua
 highlight! link rstTableLines Grey
@@ -1951,20 +1951,20 @@ highlight! link texAuthorArg BlueItalic
 " syn_end }}}
 " syn_begin: html/markdown/javascriptreact/typescriptreact {{{
 " builtin: https://notabug.org/jorgesumle/vim-html-syntax {{{
-call crimson-night#highlight('htmlH1', s:palette.red, s:palette.none, 'bold')
-call crimson-night#highlight('htmlH2', s:palette.orange, s:palette.none, 'bold')
-call crimson-night#highlight('htmlH3', s:palette.yellow, s:palette.none, 'bold')
-call crimson-night#highlight('htmlH4', s:palette.green, s:palette.none, 'bold')
-call crimson-night#highlight('htmlH5', s:palette.blue, s:palette.none, 'bold')
-call crimson-night#highlight('htmlH6', s:palette.purple, s:palette.none, 'bold')
-call crimson-night#highlight('htmlLink', s:palette.none, s:palette.none, 'underline')
-call crimson-night#highlight('htmlBold', s:palette.none, s:palette.none, 'bold')
-call crimson-night#highlight('htmlBoldUnderline', s:palette.none, s:palette.none, 'bold,underline')
-call crimson-night#highlight('htmlBoldItalic', s:palette.none, s:palette.none, 'bold,italic')
-call crimson-night#highlight('htmlBoldUnderlineItalic', s:palette.none, s:palette.none, 'bold,underline,italic')
-call crimson-night#highlight('htmlUnderline', s:palette.none, s:palette.none, 'underline')
-call crimson-night#highlight('htmlUnderlineItalic', s:palette.none, s:palette.none, 'underline,italic')
-call crimson-night#highlight('htmlItalic', s:palette.none, s:palette.none, 'italic')
+call crimsonnight#highlight('htmlH1', s:palette.red, s:palette.none, 'bold')
+call crimsonnight#highlight('htmlH2', s:palette.orange, s:palette.none, 'bold')
+call crimsonnight#highlight('htmlH3', s:palette.yellow, s:palette.none, 'bold')
+call crimsonnight#highlight('htmlH4', s:palette.green, s:palette.none, 'bold')
+call crimsonnight#highlight('htmlH5', s:palette.blue, s:palette.none, 'bold')
+call crimsonnight#highlight('htmlH6', s:palette.purple, s:palette.none, 'bold')
+call crimsonnight#highlight('htmlLink', s:palette.none, s:palette.none, 'underline')
+call crimsonnight#highlight('htmlBold', s:palette.none, s:palette.none, 'bold')
+call crimsonnight#highlight('htmlBoldUnderline', s:palette.none, s:palette.none, 'bold,underline')
+call crimsonnight#highlight('htmlBoldItalic', s:palette.none, s:palette.none, 'bold,italic')
+call crimsonnight#highlight('htmlBoldUnderlineItalic', s:palette.none, s:palette.none, 'bold,underline,italic')
+call crimsonnight#highlight('htmlUnderline', s:palette.none, s:palette.none, 'underline')
+call crimsonnight#highlight('htmlUnderlineItalic', s:palette.none, s:palette.none, 'underline,italic')
+call crimsonnight#highlight('htmlItalic', s:palette.none, s:palette.none, 'italic')
 highlight! link htmlTag Green
 highlight! link htmlEndTag Blue
 highlight! link htmlTagN OrangeItalic
@@ -2546,7 +2546,7 @@ highlight! link pythonNone Aqua
 highlight! link pythonDot Grey
 " }}}
 " semshi: https://github.com/numirias/semshi {{{
-call crimson-night#highlight('semshiUnresolved', s:palette.yellow, s:palette.none, 'undercurl')
+call crimsonnight#highlight('semshiUnresolved', s:palette.yellow, s:palette.none, 'undercurl')
 highlight! link semshiImported TSInclude
 highlight! link semshiParameter TSParameter
 highlight! link semshiParameterUnused Grey
@@ -2908,7 +2908,7 @@ highlight! link ps1BuiltIn Yellow
 " }}}
 " syn_end }}}
 " syn_begin: vim {{{
-call crimson-night#highlight('vimCommentTitle', s:palette.grey1, s:palette.none, 'bold')
+call crimsonnight#highlight('vimCommentTitle', s:palette.grey1, s:palette.none, 'bold')
 highlight! link vimLet Orange
 highlight! link vimFunction Green
 highlight! link vimIsCommand Fg
@@ -3084,7 +3084,7 @@ highlight! link yamlKey yamlBlockMappingKey  " stephpy/vim-yaml
 " syn_end }}}
 " syn_begin: toml {{{
 " builtin: https://github.com/cespare/vim-toml {{{
-call crimson-night#highlight('tomlTable', s:palette.orange, s:palette.none, 'bold')
+call crimsonnight#highlight('tomlTable', s:palette.orange, s:palette.none, 'bold')
 highlight! link tomlKey Green
 highlight! link tomlString Fg
 highlight! link tomlDate Special
@@ -3118,17 +3118,17 @@ endif
 " }}}
 " syn_end }}}
 " syn_begin: dosini {{{
-call crimson-night#highlight('dosiniHeader', s:palette.red, s:palette.none, 'bold')
+call crimsonnight#highlight('dosiniHeader', s:palette.red, s:palette.none, 'bold')
 highlight! link dosiniLabel Yellow
 highlight! link dosiniValue Green
 highlight! link dosiniNumber Green
 " syn_end }}}
 " syn_begin: help {{{
-call crimson-night#highlight('helpNote', s:palette.purple, s:palette.none, 'bold')
-call crimson-night#highlight('helpHeadline', s:palette.red, s:palette.none, 'bold')
-call crimson-night#highlight('helpHeader', s:palette.orange, s:palette.none, 'bold')
-call crimson-night#highlight('helpURL', s:palette.green, s:palette.none, 'underline')
-call crimson-night#highlight('helpHyperTextEntry', s:palette.yellow, s:palette.none, 'bold')
+call crimsonnight#highlight('helpNote', s:palette.purple, s:palette.none, 'bold')
+call crimsonnight#highlight('helpHeadline', s:palette.red, s:palette.none, 'bold')
+call crimsonnight#highlight('helpHeader', s:palette.orange, s:palette.none, 'bold')
+call crimsonnight#highlight('helpURL', s:palette.green, s:palette.none, 'underline')
+call crimsonnight#highlight('helpHyperTextEntry', s:palette.yellow, s:palette.none, 'bold')
 highlight! link helpHyperTextJump Yellow
 highlight! link helpCommand Aqua
 highlight! link helpExample Green
@@ -3142,7 +3142,7 @@ highlight! link NeotestNamespace Purple
 highlight! link NeotestFile Aqua
 highlight! link NeotestDir Directory
 highlight! link NeotestIndent NonText
-call crimson-night#highlight('NeotestExpandMarker', s:palette.bg5, s:palette.none)
+call crimsonnight#highlight('NeotestExpandMarker', s:palette.bg5, s:palette.none)
 highlight! link NeotestAdapterName Title
 highlight! link NeotestMarked Orange
 highlight! link NeotestTarget Red
@@ -3150,16 +3150,16 @@ endif
 " syn_end }}}
 " syn_begin: mason {{{
 " https://github.com/williamboman/mason.nvim
-call crimson-night#highlight('MasonHeader', s:palette.bg0, s:palette.green, 'bold')
-call crimson-night#highlight('MasonHeaderSecondary', s:palette.bg0, s:palette.orange, 'bold')
+call crimsonnight#highlight('MasonHeader', s:palette.bg0, s:palette.green, 'bold')
+call crimsonnight#highlight('MasonHeaderSecondary', s:palette.bg0, s:palette.orange, 'bold')
 highlight! link MasonHighlight Green
 highlight! link MasonHighlightSecondary Yellow
-call crimson-night#highlight('MasonHighlightBlock', s:palette.bg0, s:palette.aqua)
-call crimson-night#highlight('MasonHighlightBlockBold', s:palette.bg0, s:palette.aqua, 'bold')
-call crimson-night#highlight('MasonHighlightBlockSecondary', s:palette.bg0, s:palette.yellow)
-call crimson-night#highlight('MasonHighlightBlockBoldSecondary', s:palette.bg0, s:palette.yellow, 'bold')
-call crimson-night#highlight('MasonMuted', s:palette.grey0, s:palette.none)
-call crimson-night#highlight('MasonMutedBlock', s:palette.bg0, s:palette.grey0)
+call crimsonnight#highlight('MasonHighlightBlock', s:palette.bg0, s:palette.aqua)
+call crimsonnight#highlight('MasonHighlightBlockBold', s:palette.bg0, s:palette.aqua, 'bold')
+call crimsonnight#highlight('MasonHighlightBlockSecondary', s:palette.bg0, s:palette.yellow)
+call crimsonnight#highlight('MasonHighlightBlockBoldSecondary', s:palette.bg0, s:palette.yellow, 'bold')
+call crimsonnight#highlight('MasonMuted', s:palette.grey0, s:palette.none)
+call crimsonnight#highlight('MasonMutedBlock', s:palette.bg0, s:palette.grey0)
 " syn_end }}}
 " }}}
 
