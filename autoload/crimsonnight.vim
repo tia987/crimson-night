@@ -9,7 +9,7 @@
 function! crimsonnight#get_configuration() "{{{
   return {
         \ 'background': get(g:, 'crimsonnight_background', 'medium'),
-        \ 'transparent_background': get(g:, 'crimsonnight_transparent_background', 0),
+        \ 'transparent_background': get(g:, 'crimsonnight_transparent_background', 1),
         \ 'dim_inactive_windows': get(g:, 'crimsonnight_dim_inactive_windows', 0),
         \ 'disable_italic_comment': get(g:, 'crimsonnight_disable_italic_comment', 0),
         \ 'enable_italic': get(g:, 'crimsonnight_enable_italic', 0),
@@ -42,10 +42,10 @@ function! crimsonnight#get_palette(background, colors_override) "{{{
             \ 'bg4':        ['#7A223B',   '239'],
             \ 'bg5':        ['#882541',   '240'],
             \ 'bg_visual':  ['#4c3743',   '52'],
-            \ 'bg_red':     ['#711629',   '52'],
-            \ 'bg_green':   ['#2d7063',   '22'],
-            \ 'bg_blue':    ['#89a6d2',   '17'],
-            \ 'bg_yellow':  ['#ffb14a',   '136'],
+            \ 'bg_red':     ['#711629',   '1'],
+            \ 'bg_green':   ['#2d7063',   '23'],
+            \ 'bg_blue':    ['#89a6d2',   '110'],
+            \ 'bg_yellow':  ['#ffb14a',   '215'],
             \ }
     else
       let palette1 = {
@@ -57,10 +57,10 @@ function! crimsonnight#get_palette(background, colors_override) "{{{
             \ 'bg4':        ['#7A223B',   '239'],
             \ 'bg5':        ['#882541',   '240'],
             \ 'bg_visual':  ['#4c3743',   '52'],
-            \ 'bg_red':     ['#711629',   '52'],
-            \ 'bg_green':   ['#2d7063',   '22'],
-            \ 'bg_blue':    ['#89a6d2',   '17'],
-            \ 'bg_yellow':  ['#ffb14a',   '136'],
+            \ 'bg_red':     ['#711629',   '1'],
+            \ 'bg_green':   ['#2d7063',   '23'],
+            \ 'bg_blue':    ['#89a6d2',   '110'],
+            \ 'bg_yellow':  ['#ffb14a',   '215'],
             \ }
     endif "}}}
   elseif a:background ==# 'medium' "{{{
